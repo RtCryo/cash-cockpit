@@ -1,0 +1,153 @@
+.container {
+    min-height: 90%;
+    height: calc(90vh - 110px)
+}
+
+.total {
+    display: flex;
+    font-weight: bold;
+    justify-content: flex-end;
+    align-content: center;
+}
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+}
+
+.end {
+    text-align: end!important;
+}
+
+:host >>> .p-calendar .p-inputtext {
+    width: 16rem!important;
+    height: 2rem!important;
+}
+
+.p-float-label label {
+    font-size: 0.9rem!important;
+}
+
+:host >>> .p-float-label .p-inputwrapper-focus ~ label {
+    font-size: 0.7rem!important;
+}
+
+.filter {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+:host >>> .p-button {
+    height: 2rem;
+    font-size: 0.9rem;
+    background-color: rgba(254, 204, 0, 0.558)!important;
+    color: #495057!important;
+    border-color: #4950577c!important;
+}
+
+:host >>> .p-button:focus {
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #ffc400, 0 1px 2px 0 black!important;
+}
+
+:host >>> .p-toolbar {
+    padding: 0 1rem 0 1rem;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+:host >>> .p-multiselect-panel .p-multiselect-header {
+    display: none;
+}
+
+:host >>> .p-multiselect {
+    height: 2rem;
+    width: 26rem;
+    font-size: 0.9rem;
+}
+
+:host >>> .p-multiselect .p-multiselect-label {
+    padding: 0rem 0.75rem;
+}
+
+:host >>> p-multiselect.p-multiselect-clearable .p-multiselect-label-container {
+    display: flex;
+    align-items: center;
+}
+
+:host >>> .p-multiselect-panel .p-multiselect-items {
+    font-size: 0.9rem!important;
+}
+
+:host >>> .p-tag {
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 0.1rem 0.3rem;
+}
+
+.report {
+    display: flex;
+    font-weight: bold;
+    gap: 1rem;
+}
+
+.margin-right-02 {
+    margin-right: 0.2rem;
+}
+
+.dialogContainer {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: repeat(6, auto);
+    grid-gap: 0.2rem;
+    padding: 0 1rem 1rem 0;
+}
+
+.dialogContainer .p-inputgroup p-dropdown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dialogContainer .p-inputgroup > .p-component, .p-inputgroup > .p-element, .p-inputgroup > .p-inputwrapper > .p-component > .p-inputtext, .p-inputgroup > .p-float-label > .p-component {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+:host >>> .dialogContainer .p-inputgroup input:first-child {
+    border-top-left-radius: 0!important;
+    border-bottom-left-radius: 0!important;
+}
+
+:host >>> .dialogContainer .p-calendar {
+    width: 100%;
+}
+
+:host >>> .dialogContainer .p-calendar .p-datepicker {
+    min-width: 50%;
+    width: 50%!important;
+}
+
+:host >>> .dialogContainer .p-inputgroup > .p-inputwrapper:last-child > .p-component {
+    border-top-left-radius: 0!important;
+    border-bottom-left-radius: 0!important;
+}
+
+.dialogContainer .p-component:disabled {
+    opacity: 0.75!important; 
+}
+
+:host >>> .dialogContainer .p-autocomplete {
+    display: block!important;
+    position: relative;
+}
+
+.dialogContainer .save {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: flex-end;
+}

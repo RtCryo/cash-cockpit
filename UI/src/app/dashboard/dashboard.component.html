@@ -1,0 +1,58 @@
+<div class="px-4 py-5 md:px-6 lg:px-8">
+    <div class="grid">
+        <div class="col-12 md:col-2 lg:col-2 p-2">
+            <div class="p-3 text-center bg-blue-500" style="border-radius: 12px">
+                <span class="inline-flex justify-content-center align-items-center bg-blue-600 border-circle mb-3" style="width:49px; height: 49px">
+                    <i class="pi pi-euro text-xl text-white"></i>
+                </span>
+                <div class="text-2xl font-medium text-white mb-2">{{report.transactions}}</div>
+                <span class="text-blue-100 font-medium">Transactions</span>
+            </div>
+        </div>
+        <div class="col-12 md:col-2 lg:col-2 p-2">
+            <div class="p-3 text-center bg-orange-500" style="border-radius: 12px">
+                <span class="inline-flex justify-content-center align-items-center bg-orange-600 border-circle mb-3" style="width:49px; height: 49px">
+                    <i class="pi pi-users text-xl text-white"></i>
+                </span>
+                <div class="text-2xl font-medium text-white mb-2">{{report.consumers}}</div>
+                <span class="text-orange-100 font-medium">Consumers</span>
+            </div>
+        </div>
+        <div class="col-12 md:col-2 lg:col-2 p-2">
+            <div class="p-3 text-center bg-purple-500" style="border-radius: 12px">
+                <span class="inline-flex justify-content-center align-items-center bg-purple-600 border-circle mb-3" style="width:49px; height: 49px">
+                    <i class="pi pi-tags text-xl text-white"></i>
+                </span>
+                <div class="text-2xl font-medium text-white mb-2">{{report.tags}}</div>
+                <span class="text-purple-100 font-medium">Tags</span>
+            </div>
+        </div>
+        <div class="col-12 md:col-2 lg:col-2 p-2">
+            <div class="p-3 text-center bg-cyan-500" style="border-radius: 12px">
+                <span class="inline-flex justify-content-center align-items-center bg-cyan-600 border-circle mb-3" style="width:49px; height: 49px">
+                    <i class="pi pi-users text-xl text-white"></i>
+                </span>
+                <div class="text-2xl font-medium text-white mb-2">{{report.rules}}</div>
+                <span class="text-cyan-100 font-medium">Rules</span>
+            </div>
+        </div>
+        <div class="col-12 md:col-2 lg:col-2 p-2">
+            <div class="p-3 text-center bg-yellow-500" style="border-radius: 12px">
+                <span class="inline-flex justify-content-center align-items-center bg-yellow-600 border-circle mb-3" style="width:49px; height: 49px">
+                    <i class="pi pi-users text-xl text-white"></i>
+                </span>
+                <div class="text-2xl font-medium text-white mb-2">{{report.vault | currency: 'EUR'}}</div>
+                <span class="text-yellow-100 font-medium">Vault</span>
+            </div>
+        </div>
+        <div class="col-12 md:col-2 lg:col-2 p-2">
+            <div class="p-3 text-center bg-indigo-500" style="border-radius: 12px">
+                <span class="inline-flex justify-content-center align-items-center bg-indigo-600 border-circle mb-3" style="width:49px; height: 49px">
+                    <i class="pi pi-file text-xl text-white"></i>
+                </span>
+                <div class="text-2xl font-medium text-white mb-2">{{report.files}}</div>
+                <span class="text-indigo-100 font-medium">Files</span>
+            </div>
+        </div>
+    </div>
+</div>

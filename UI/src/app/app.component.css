@@ -1,0 +1,50 @@
+.header {
+    height: 8vh;
+    padding-left: 1rem;
+}
+
+.container {
+    gap: 0.5rem;
+    display: flex;
+    min-height: 90vh;
+    align-content: stretch;
+    flex-direction: row;
+    padding-bottom: 0.5rem;
+}
+
+.main {
+    height: 90vh;
+    max-height: 90vw;
+    min-height: 40vw;
+    padding: 1rem;
+    background: #ffffff;
+    color: #495057;
+    border-radius: 6px;
+    flex-shrink: 0;
+    flex-grow: 1;
+    box-shadow: #093478 0px 0px 5px 0px, #093478 0px 0px 1px 0px;
+}
+
+.navbar {
+    width: auto;
+    color: #495057;
+    background: #ffffff;
+    border-radius: 6px;
+    box-shadow: #093478 0px 0px 5px 0px, #093478 0px 0px 1px 0px;
+}
+
+:host >>> .p-message {
+    z-index: 90;
+    position: absolute;
+    right: 5%;
+    width: 30rem;
+    box-shadow: #093478 0px 0px 6px 0px, #093478 0px 0px 1px 0px;
+}
+
+:host >>> .p-menuitem-link:focus {
+    box-shadow: inset 0 0 0 0.15rem rgba(234, 201, 69, 0.694)!important;
+}
+
+:host >>> .p-menuitem-link:not(.p-disabled):hover {
+    background: rgba(234, 201, 69, 0.375)!important;
+}

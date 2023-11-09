@@ -1,0 +1,11 @@
+.container {
+    display: flex;
+}
+
+p {
+    color: #093478;
+    font-style: italic;
+    font-size: 1.8rem;
+    margin: 0 0 0.2rem 0.4rem;
+    align-self: center;
+}
