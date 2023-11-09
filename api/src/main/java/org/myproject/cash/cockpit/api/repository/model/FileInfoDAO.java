@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Builder
-@Table(name = "fileInfo")
+@Table(name = "file_info")
 @NoArgsConstructor
 @AllArgsConstructor
 public class FileInfoDAO extends AbstractDAO {
@@ -19,10 +19,10 @@ public class FileInfoDAO extends AbstractDAO {
 
     private String type;
 
-    @Column(name = "startDate")
+    @Column(name = "start_date")
     private LocalDate start;
 
-    @Column(name = "endDate")
+    @Column(name = "end_date")
     private LocalDate end;
 
     @OneToOne(cascade = CascadeType.ALL)

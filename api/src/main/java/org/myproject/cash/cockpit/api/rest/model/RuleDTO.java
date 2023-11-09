@@ -5,12 +5,14 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.Builder;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 import java.util.UUID;
 
 @Data
 @Builder(toBuilder = true)
+@RequiredArgsConstructor
 public class RuleDTO {
 
     @NotNull(message = "tag can't be null")

@@ -19,19 +19,19 @@ public class TransactionDAO extends AbstractDAO {
     private LocalDate transactionDate;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "transaction_info_ID")
+    @JoinColumn(name = "transaction_info_id")
     private TransactionInfoDAO transactionInfo;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "transaction_type_ID")
+    @JoinColumn(name = "transaction_type_id")
     private TransactionTypeDAO transactionType;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "consumer_ID")
+    @JoinColumn(name = "consumer_id")
     private ConsumerDAO consumer;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "sender_ID")
+    @JoinColumn(name = "sender_id")
     private SenderDAO sender;
 
     @ManyToMany(cascade = {

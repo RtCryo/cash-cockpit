@@ -8,10 +8,10 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-@Table(name = "ruleHas")
+@Table(name = "has")
 @NoArgsConstructor
 @AllArgsConstructor
-public class RuleHasDAO extends AbstractDAO {
+public class HasDAO extends AbstractDAO {
 
     private String has;
 }

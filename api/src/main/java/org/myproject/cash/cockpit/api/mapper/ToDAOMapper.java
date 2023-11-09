@@ -5,7 +5,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.myproject.cash.cockpit.api.repository.model.ConsumerDAO;
 import org.myproject.cash.cockpit.api.repository.model.RuleDAO;
-import org.myproject.cash.cockpit.api.repository.model.RuleHasDAO;
+import org.myproject.cash.cockpit.api.repository.model.HasDAO;
 import org.myproject.cash.cockpit.api.repository.model.TagDAO;
 import org.myproject.cash.cockpit.api.rest.model.ConsumerDTO;
 import org.myproject.cash.cockpit.api.rest.model.RuleDTO;
@@ -25,8 +25,8 @@ public abstract class ToDAOMapper {
     @Mapping(target = "tag", source = "tagId")
     public abstract RuleDAO toRuleDAO(RuleDTO ruleDto);
 
-    protected RuleHasDAO toRuleHas(final String has) {
-        return RuleHasDAO.builder()
+    protected HasDAO toRuleHas(final String has) {
+        return HasDAO.builder()
                 .has(has)
                 .build();
     }

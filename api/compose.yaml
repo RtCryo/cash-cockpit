@@ -1,10 +1,19 @@
+version: '3.7'
+
 services:
-  mysql:
-    image: 'mysql:latest'
+  ext_postgresql:
+    container_name: ext_postgresql_v2
+    image: postgres:12
     environment:
-      - 'MYSQL_DATABASE=cash_cockpit'
-      - 'MYSQL_PASSWORD=secret'
-      - 'MYSQL_ROOT_PASSWORD=verysecret'
-      - 'MYSQL_USER=myuser'
+      POSTGRES_DB: cash_cockpit
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: verysecret
     ports:
-      - '3306'
+      - "5432:5432"
+    restart: always
+    volumes:
+      - postgres:/data/postgres
+
+volumes:
+  postgres:
+    name: cash_cockpit_db

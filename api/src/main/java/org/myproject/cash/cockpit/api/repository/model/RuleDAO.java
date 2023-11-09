@@ -15,13 +15,16 @@ import java.util.List;
 public class RuleDAO extends AbstractDAO {
 
     @OneToMany(cascade = CascadeType.ALL)
-    private List<RuleHasDAO> has;
+    @JoinTable(name = "rule_has",
+            joinColumns = @JoinColumn(name = "rule_id"),
+            inverseJoinColumns = @JoinColumn(name = "has_id"))
+    private List<HasDAO> has;
 
     @Enumerated(EnumType.STRING)
     private RuleArea area;
 
-    @ManyToOne
-    @JoinColumn(name = "tag_ID")
+    @OneToOne
+    @JoinColumn(name = "tag_id")
     private TagDAO tag;
 
 }
