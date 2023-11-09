@@ -9,6 +9,7 @@ import org.myproject.cash.cockpit.api.repository.model.HasDAO;
 import org.myproject.cash.cockpit.api.repository.model.TagDAO;
 import org.myproject.cash.cockpit.api.rest.model.ConsumerDTO;
 import org.myproject.cash.cockpit.api.rest.model.RuleDTO;
+import org.myproject.cash.cockpit.api.rest.model.TagDTO;
 import org.myproject.cash.cockpit.api.service.tag.TagRepositoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -24,6 +25,8 @@ public abstract class ToDAOMapper {
 
     @Mapping(target = "tag", source = "tagId")
     public abstract RuleDAO toRuleDAO(RuleDTO ruleDto);
+
+    public abstract TagDAO toTagDAO(TagDTO tagDTO);
 
     protected HasDAO toRuleHas(final String has) {
         return HasDAO.builder()

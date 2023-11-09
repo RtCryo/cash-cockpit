@@ -39,7 +39,7 @@ public class ImportController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/statement/{bankStatementId}")
     public byte[] getBankStatementById(@PathVariable final UUID bankStatementId) {
-        return fileService.getFileById(bankStatementId).getFileByte();
+        return fileService.getFileById(bankStatementId).fileByte();
     }
 
 }

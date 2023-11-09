@@ -6,11 +6,13 @@ import org.myproject.cash.cockpit.api.mapper.ToDAOMapper;
 import org.myproject.cash.cockpit.api.mapper.ToDTOMapper;
 import org.myproject.cash.cockpit.api.repository.RuleRepository;
 import org.myproject.cash.cockpit.api.repository.model.RuleDAO;
+import org.myproject.cash.cockpit.api.repository.model.TagDAO;
 import org.myproject.cash.cockpit.api.rest.model.RuleDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -47,5 +49,9 @@ public class RuleRepositoryService {
         ruleToUpdate.setHas(newRule.getHas());
         ruleToUpdate.setTag(newRule.getTag());
         ruleRepository.save(ruleToUpdate);
+    }
+
+    public void deleteAllByTag(final Set<TagDAO> tagIdToDelete) {
+        ruleRepository.deleteAllByTagIn(tagIdToDelete);
     }
 }
