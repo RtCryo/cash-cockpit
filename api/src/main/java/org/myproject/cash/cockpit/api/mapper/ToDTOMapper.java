@@ -21,6 +21,8 @@ public abstract class ToDTOMapper {
 
     public abstract TagDTO toTagDTO(TagDAO tagDAO);
 
+    public abstract TransactionDTO toTransactionDTO(TransactionDAO transactionDAO);
+
     protected String hasToString(final HasDAO ruleHasJpa) {
         return ruleHasJpa.getHas();
     }
