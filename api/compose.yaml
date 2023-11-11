@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   ext_postgresql:
-    container_name: ext_postgresql_v2
+    container_name: ext_postgresql_v3
     image: postgres:12
     environment:
       POSTGRES_DB: cash_cockpit
@@ -14,6 +14,18 @@ services:
     volumes:
       - postgres:/data/postgres
 
+  app:
+    container_name: cash-api_v2
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - ext_postgresql
+    restart: always
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://ext_postgresql:5432/cash_cockpit
+      - SPRING_DATASOURCE_USERNAME=myuser
+      - SPRING_DATASOURCE_PASSWORD=verysecret
+
 volumes:
   postgres:
-    name: cash_cockpit_db

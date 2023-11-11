@@ -6,12 +6,9 @@ RUN microdnf update -y && \
 
 WORKDIR /usr
 
-COPY pom.xml .
-RUN mvn dependency:go-offline
-
 COPY . .
 
-RUN mvn -Pnative native:compile
+RUN mvn -Pnative -DskipTests native:compile
 
 FROM ghcr.io/graalvm/jdk-community:21
 
