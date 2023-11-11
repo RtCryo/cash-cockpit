@@ -16,7 +16,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -48,7 +47,7 @@ public class TransactionRepositoryService {
         return transactionRepository
                 .findByDateBetweenAndTagsOrderByDate(localDateStart, localDateEnd, tags, tags.size()).stream()
                 .map(toDTOMapper::toTransactionDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public List<TransactionDTO> findTransactionsWithDateFilter(final LocalDate start, final LocalDate end) {
@@ -56,7 +55,7 @@ public class TransactionRepositoryService {
         return transactionRepository.findAllByTransactionDateBetweenOrderByTransactionDate(start, end)
                 .stream()
                 .map(toDTOMapper::toTransactionDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private void validateDatepicker(final LocalDate start, final LocalDate end) {
@@ -78,10 +77,9 @@ public class TransactionRepositoryService {
     public void updateTransaction(final UUID id, final TransactionDTO transaction) {
         TransactionDAO dao = transactionRepository.findById(id)
                 .orElseThrow(TransactionNotFoundException::new);
-        TransactionDAO updateTransaction = toDAOMapper.toTransactionDAO(transaction);
         dao.toBuilder()
-                .tags(updateTransaction.getTags())
-                .transactionInfo(updateTransaction.getTransactionInfo())
+                .tags(toDAOMapper.toListTagDAO(transaction.tags()))
+                .transactionInfo(toDAOMapper.toInfoDAO(transaction.transactionInfo()))
                 .build();
         transactionRepository.save(dao);
     }

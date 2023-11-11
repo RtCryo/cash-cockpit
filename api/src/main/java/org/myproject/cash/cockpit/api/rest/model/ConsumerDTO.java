@@ -2,5 +2,7 @@ package org.myproject.cash.cockpit.api.rest.model;
 
 import jakarta.validation.constraints.NotEmpty;
 
-public record ConsumerDTO(@NotEmpty String name) {
+import java.util.UUID;
+
+public record ConsumerDTO(UUID id, @NotEmpty String name) {
 }

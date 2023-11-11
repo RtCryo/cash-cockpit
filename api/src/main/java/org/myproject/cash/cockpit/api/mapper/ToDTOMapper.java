@@ -23,6 +23,10 @@ public abstract class ToDTOMapper {
 
     public abstract TransactionDTO toTransactionDTO(TransactionDAO transactionDAO);
 
+    public abstract TransactionTypeDTO toTypeDTO(TransactionTypeDAO transactionTypeDAO);
+
+    public abstract VaultDTO toVaultDTO(VaultDAO vaultDAO);
+
     protected String hasToString(final HasDAO ruleHasJpa) {
         return ruleHasJpa.getHas();
     }
