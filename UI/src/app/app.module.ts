@@ -29,7 +29,7 @@ import { BlockUIModule } from 'primeng/blockui';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { PanelModule } from 'primeng/panel';
 import { CalendarModule } from 'primeng/calendar';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { InputTextModule } from 'primeng/inputtext';
@@ -49,6 +49,12 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { ChipsModule } from 'primeng/chips';
 import { VaultComponent } from './vault/vault.component';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { HomeComponent } from './home/home.component';
+import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+import {MenubarModule} from "primeng/menubar";
+import {MenuModule} from "primeng/menu";
+import {CardModule} from "primeng/card";
+import {PasswordModule} from "primeng/password";
 
 @NgModule({
   declarations: [
@@ -63,43 +69,50 @@ import { InputNumberModule } from 'primeng/inputnumber';
     ConsumersComponent,
     TruncatePipe,
     RulesComponent,
-    VaultComponent
+    VaultComponent,
+    HomeComponent,
+    UserDashboardComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    ButtonModule,
-    TieredMenuModule,
-    MegaMenuModule,
-    ImageModule,
-    TableModule,
-    FileUploadModule,
-    HttpClientModule,
-    RippleModule,
-    MessagesModule,
-    MessageModule,
-    BlockUIModule,
-    ProgressSpinnerModule,
-    PanelModule,
-    CalendarModule,
-    FormsModule,
-    AutoCompleteModule,
-    DynamicDialogModule,
-    InputTextModule,
-    InputTextareaModule,
-    DropdownModule,
-    ToolbarModule,
-    ConfirmDialogModule,
-    DialogModule,
-    StyleClassModule,
-    MultiSelectModule,
-    TagModule,
-    CheckboxModule,
-    SelectButtonModule,
-    ChipsModule,
-    InputNumberModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        ButtonModule,
+        TieredMenuModule,
+        MegaMenuModule,
+        ImageModule,
+        TableModule,
+        FileUploadModule,
+        HttpClientModule,
+        RippleModule,
+        MessagesModule,
+        MessageModule,
+        BlockUIModule,
+        ProgressSpinnerModule,
+        PanelModule,
+        CalendarModule,
+        FormsModule,
+        AutoCompleteModule,
+        DynamicDialogModule,
+        InputTextModule,
+        InputTextareaModule,
+        DropdownModule,
+        ToolbarModule,
+        ConfirmDialogModule,
+        DialogModule,
+        StyleClassModule,
+        MultiSelectModule,
+        TagModule,
+        CheckboxModule,
+        SelectButtonModule,
+        ChipsModule,
+        InputNumberModule,
+        MenubarModule,
+        MenuModule,
+        ReactiveFormsModule,
+        CardModule,
+        PasswordModule
+    ],
   providers: [MessageService, ConfirmationService],
   bootstrap: [AppComponent]
 })

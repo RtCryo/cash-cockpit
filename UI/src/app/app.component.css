@@ -1,6 +1,9 @@
 .header {
-    height: 8vh;
-    padding-left: 1rem;
+  display: flex;
+  justify-content: space-between;
+  height: 8vh;
+  padding: 0 1rem 0 1rem;
+  align-items: center;
 }
 
 .container {

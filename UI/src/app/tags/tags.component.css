@@ -1,28 +1,28 @@
 :host >>> .p-button {
-    height: 2rem;
-    font-size: 0.9rem;
-    margin-right: 0.5rem;
+  height: 2rem;
+  font-size: 0.9rem;
+  margin-right: 0.5rem;
 }
 
 :host >>> .p-button-success {
-    background-color: rgba(254, 204, 0, 0.558)!important;
-    color: #495057!important;
-    border-color: #4950577c!important;
+  background-color: rgba(254, 204, 0, 0.558) !important;
+  color: #495057 !important;
+  border-color: #4950577c !important;
 }
 
 :host >>> .p-button.p-button-success:focus {
-    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #ffc400, 0 1px 2px 0 black!important;
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #ffc400, 0 1px 2px 0 black !important;
 }
 
 :host >>> .p-toolbar {
-    padding: 1rem;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+  padding: 1rem;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .spinner {
-    position: absolute;
-    z-index: 99;
-    right: 50%;
-    top: 20%
+  position: absolute;
+  z-index: 99;
+  right: 47.5%;
+  top: 20%
 }

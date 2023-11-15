@@ -1,0 +1,20 @@
+<p-blockUI [blocked]="blockedDocument" [baseZIndex]="90"></p-blockUI>
+<p-progressSpinner class="spinner" styleClass="custom-spinner" [hidden]="!blockedDocument"
+                   strokeWidth="5"></p-progressSpinner>
+
+<div class="card flex justify-content-center">
+  <p-card>
+    <form [formGroup]="formGroup">
+      <div class="elements">
+        <input type="text" pInputText formControlName="username" placeholder="Username"/>
+        <p-password formControlName="password" [feedback]="false" [toggleMask]="true"
+                    placeholder="Password"></p-password>
+      </div>
+    </form>
+    <ng-template pTemplate="footer">
+      <div class="center">
+        <p-button label="Login" icon="pi pi-check" (onClick)="onSubmit()"></p-button>
+      </div>
+    </ng-template>
+  </p-card>
+</div>
