@@ -24,4 +24,8 @@ public class FileRepositoryService {
     public long count() {
         return fileRepository.count();
     }
+
+    public FileDAO save(final FileDAO fileDAO) {
+        return fileRepository.save(fileDAO);
+    }
 }
