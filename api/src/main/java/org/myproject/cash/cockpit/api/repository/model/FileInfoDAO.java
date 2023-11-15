@@ -28,4 +28,7 @@ public class FileInfoDAO extends AbstractDAO {
     @OneToOne(cascade = CascadeType.ALL)
     private FileDAO bankStatement;
 
+    @Column(name = "is_handled")
+    private Boolean isHandled;
+
 }
