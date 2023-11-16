@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+import static java.util.Objects.isNull;
+
 @Service
 @RequiredArgsConstructor
 public class TransactionRepositoryService {
@@ -62,10 +64,6 @@ public class TransactionRepositoryService {
         if (isNull(start) || isNull(end)) {
             throw new DatepickerNullException("Date range is wrong");
         }
-    }
-
-    private boolean isNull(final Object o) {
-        return o == null;
     }
 
     public TransactionDTO findTransaction(final UUID id) {

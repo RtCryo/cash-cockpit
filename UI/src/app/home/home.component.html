@@ -6,14 +6,44 @@
   <p-card>
     <form [formGroup]="formGroup">
       <div class="elements">
-        <input type="text" pInputText formControlName="username" placeholder="Username"/>
-        <p-password formControlName="password" [feedback]="false" [toggleMask]="true"
-                    placeholder="Password"></p-password>
+        <div class="flex flex-column gap-2">
+          <input type="text" pInputText formControlName="username" placeholder="Username" required/>
+          <small *ngIf="formGroup.controls['username'].invalid && formGroup.controls['username'].touched">Username is
+            required</small>
+          <small *ngIf="formGroup.controls['username'].value !== '' && formGroup.controls['username'].invalid && formGroup.controls['username'].touched">Username is
+            incorrect</small>
+        </div>
+        <div class="flex flex-column gap-2">
+          <p-password formControlName="password" [feedback]="false" [toggleMask]="true" required
+                      placeholder="Password"></p-password>
+          <small *ngIf="formGroup.controls['password'].value === '' && formGroup.controls['password'].touched">Password is
+            required</small>
+          <small *ngIf="formGroup.controls['password'].value !== '' && formGroup.controls['password'].invalid && formGroup.controls['password'].touched">Password is
+            incorrect</small>
+        </div>
+        <div class="flex flex-column gap-2">
+          <p-password formControlName="repeat" [feedback]="false" [toggleMask]="true" required
+                      placeholder="Repeat password" *ngIf="registration"></p-password>
+          <small
+            *ngIf="formGroup.controls['repeat']?.value == '' && formGroup.controls['repeat']?.touched && registration">Password
+            is required</small>
+          <small *ngIf="(formGroup.value.password !== formGroup.value.repeat) && registration">Password not match</small>
+          <small *ngIf="registration && formGroup.controls['repeat'].value !== '' && formGroup.controls['repeat'].invalid && formGroup.controls['repeat'].touched">Password is
+            incorrect</small>
+        </div>
+
       </div>
     </form>
     <ng-template pTemplate="footer">
-      <div class="center">
-        <p-button label="Login" icon="pi pi-check" (onClick)="onSubmit()"></p-button>
+      <div class="center gap-1">
+        <ng-template [ngIf]="registration">
+          <p-button label="Submit" icon="pi pi-check" (onClick)="onSubmitRegistration()" [disabled] = 'formGroup.invalid'></p-button>
+          <p-button label="Back" icon="pi pi-angle-left" (onClick)="registrationChange()"></p-button>
+        </ng-template>
+        <ng-template [ngIf]="!registration">
+          <p-button label="Login" icon="pi pi-check" (onClick)="onSubmit()"></p-button>
+          <p-button label="Registration" icon="pi pi-user-plus" (onClick)="registrationChange()"></p-button>
+        </ng-template>
       </div>
     </ng-template>
   </p-card>
