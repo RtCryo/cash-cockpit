@@ -24,4 +24,7 @@ public class TagDAO extends AbstractDAO {
             CascadeType.REFRESH})
     private List<TransactionDAO> transactions;
 
+    @ManyToOne
+    private UserDAO userDAO;
+
 }

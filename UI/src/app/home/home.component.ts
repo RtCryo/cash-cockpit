@@ -91,7 +91,7 @@ export class HomeComponent {
     this.userService.registration(newUser).subscribe({
       next: (msg) => {
         this.blockedDocument = false;
-        this.messageService.add({severity: 'error', summary: 'Error', detail: msg.message, life: 3000})
+        this.messageService.add({severity: 'success', summary: 'Success', detail: msg.message, life: 3000})
         this.router.navigate(["/dashboard"]);
       },
       error: (response) => {

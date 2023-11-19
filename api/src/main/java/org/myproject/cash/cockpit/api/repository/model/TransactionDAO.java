@@ -47,4 +47,7 @@ public class TransactionDAO extends AbstractDAO {
     @Column(name = "total")
     private double total;
 
+    @ManyToOne
+    private UserDAO userDAO;
+
 }
