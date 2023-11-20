@@ -22,9 +22,12 @@ import java.util.List;
 @EnableWebSecurity
 public class AuthorizeUrlsSecurityConfig {
 
+    private final JwtConfig jwtConfigurer;
     private final UserDetailsService userDetailsService;
+    private static final String[] WHITE_LIST = {"/api/login**", "/api/user/registration**", "/swagger-ui/**", "/v3/api-docs/**"};
 
-    public AuthorizeUrlsSecurityConfig(@Qualifier(value = "myUserDetailsService") final UserDetailsService userDetailsService) {
+    public AuthorizeUrlsSecurityConfig(final JwtConfig jwtConfigurer, @Qualifier(value = "myUserDetailsService") final UserDetailsService userDetailsService) {
+        this.jwtConfigurer = jwtConfigurer;
         this.userDetailsService = userDetailsService;
     }
 
@@ -32,7 +35,7 @@ public class AuthorizeUrlsSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorizeHttpRequests ->
-                        authorizeHttpRequests.requestMatchers("/api/login**", "/api/user/registration**").permitAll()
+                        authorizeHttpRequests.requestMatchers(WHITE_LIST).permitAll()
                                 .anyRequest().authenticated())
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource()))
@@ -40,7 +43,8 @@ public class AuthorizeUrlsSecurityConfig {
                         response.sendError(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase())))
                 .logout(httpSecurityLogoutConfigurer -> httpSecurityLogoutConfigurer.deleteCookies("JSESSIONID")
                         .invalidateHttpSession(true)
-                        .clearAuthentication(true));
+                        .clearAuthentication(true))
+                .apply(jwtConfigurer);
         return http.build();
     }
 
@@ -67,5 +71,6 @@ public class AuthorizeUrlsSecurityConfig {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
 
 }
