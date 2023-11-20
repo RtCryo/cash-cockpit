@@ -16,8 +16,8 @@ import static java.util.Objects.isNull;
 public class LoginController {
 
 
-    @GetMapping()
-    public ResponseEntity<UserDTO> getLoginPage(@AuthenticationPrincipal User user) {
+    @GetMapping
+    public ResponseEntity<UserDTO> getLoginPage(@AuthenticationPrincipal final User user) {
         if (isNull(user)) {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
