@@ -3,6 +3,8 @@ import {User} from "../_model/User";
 import {BehaviorSubject, map, Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
+import {Router} from "@angular/router";
+import {AuthResponse} from "../_model/AuthResponse";
 
 @Injectable({
   providedIn: 'root'
@@ -12,31 +14,52 @@ export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
-  constructor(private http: HttpClient) {
-    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')!));
-    this.currentUser = this.currentUserSubject.asObservable();
+  constructor(
+    private router: Router,
+    private http: HttpClient
+  ) {
+    try {
+      this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('fc_currentUser')!));
+      this.currentUser = this.currentUserSubject.asObservable();
+    } catch (error: any){
+      localStorage.removeItem('fc_currentUser');
+      this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('fc_currentUser')!));
+      this.currentUser = this.currentUserSubject.asObservable();
+    }
   }
 
   public get currentUserValue(): User {
-    return this.currentUserSubject.value;
+    return this.currentUserSubject?.value;
   }
 
-  login(username: string, password: string) {
-    return this.http.get<User>(environment.hostUrl + '/login',
-      {headers: {authorization: this.createBasicAuthToken(username, password)}, withCredentials: true}
-    ).pipe(map(user => {
-      localStorage.setItem('currentUser', JSON.stringify(user));
-      this.currentUserSubject.next(user);
-      return user;
-    }))
+
+  login(user: User) {
+    return this.http.post<AuthResponse>(`${environment.hostUrl}/auth/login`, user)
+      .pipe(map(authResponse => {
+        localStorage.setItem('fc_token', authResponse.accessToken);
+        localStorage.setItem('fc_refresh_token', authResponse.refreshToken);
+        localStorage.setItem('fc_currentUser', JSON.stringify(new User(authResponse.username, "")));
+        this.currentUserSubject.next(new User(authResponse.username, ""));
+        return authResponse;
+      }));
   }
 
-  createBasicAuthToken(username: string, password: string) {
-    return 'Basic ' + window.btoa(username + ":" + password);
+  registration(user: User): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${environment.hostUrl}/auth/register`, user)
+      .pipe(map(authResponse => {
+        localStorage.setItem('fc_token', authResponse.accessToken);
+        localStorage.setItem('fc_refresh_token', authResponse.refreshToken);
+        localStorage.setItem('fc_currentUser', JSON.stringify(new User(authResponse.username, "")));
+        this.currentUserSubject.next(new User(authResponse.username, ""));
+        return authResponse;
+      }));
   }
 
   logout() {
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem('fc_token');
+    localStorage.removeItem('fc_refresh_token');
+    localStorage.removeItem('fc_currentUser');
     this.currentUserSubject.next(null!);
+    this.router.navigate(['/home']);
   }
 }

@@ -8,17 +8,18 @@ import {TransactionsComponent} from './transactions/transactions.component';
 import {UploadComponent} from './upload/upload.component';
 import {VaultComponent} from './vault/vault.component';
 import {HomeComponent} from "./home/home.component";
+import {AuthGuard} from "./_guard/auth.guard";
 
 const routes: Routes = [
-  {path: '**', redirectTo: 'home'},
   {path: 'home', component: HomeComponent},
-  {path: 'dashboard', component: DashboardComponent},
-  {path: 'transactions', component: TransactionsComponent},
-  {path: 'tags', component: TagsComponent},
-  {path: 'files', component: FilesComponent},
-  {path: 'upload', component: UploadComponent},
-  {path: 'rules', component: RulesComponent},
-  {path: 'vault', component: VaultComponent}
+  {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
+  {path: 'transactions', component: TransactionsComponent, canActivate: [AuthGuard]},
+  {path: 'tags', component: TagsComponent, canActivate: [AuthGuard]},
+  {path: 'files', component: FilesComponent, canActivate: [AuthGuard]},
+  {path: 'upload', component: UploadComponent, canActivate: [AuthGuard]},
+  {path: 'rules', component: RulesComponent, canActivate: [AuthGuard]},
+  {path: 'vault', component: VaultComponent, canActivate: [AuthGuard]},
+  {path: '**', redirectTo: 'home'}
 ];
 
 @NgModule({
@@ -27,3 +28,6 @@ const routes: Routes = [
 })
 export class AppRoutingModule {
 }
+
+
+//authGuard

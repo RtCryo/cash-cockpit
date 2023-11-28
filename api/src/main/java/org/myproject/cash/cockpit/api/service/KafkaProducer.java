@@ -16,7 +16,7 @@ public class KafkaProducer {
     private final KafkaTemplate<String, byte[]> kafkaTemplate;
 
     public void send(final UUID fileId, final byte[] fileToHandling) {
-        kafkaTemplate.send(topicName, fileId.toString(),fileToHandling);
+        kafkaTemplate.send(topicName, fileId.toString(), fileToHandling);
     }
 
 }

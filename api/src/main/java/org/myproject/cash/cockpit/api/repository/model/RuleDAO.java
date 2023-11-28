@@ -27,6 +27,6 @@ public class RuleDAO extends AbstractDAO {
     @JoinColumn(name = "tag_id")
     private TagDAO tag;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private UserDAO userDAO;
 }

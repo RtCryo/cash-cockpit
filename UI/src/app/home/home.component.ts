@@ -3,7 +3,6 @@ import {AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, 
 import {ActivatedRoute, Router} from "@angular/router";
 import {AuthenticationService} from "../_service/authentication.service";
 import {MessageService} from "primeng/api";
-import {UserService} from "../_service/user.service";
 import {User} from "../_model/User";
 import {repeat} from "rxjs";
 
@@ -22,8 +21,7 @@ export class HomeComponent {
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
-    private messageService: MessageService,
-    private userService: UserService
+    private messageService: MessageService
   ) {
     if (this.authenticationService.currentUserValue) {
       this.router.navigate(['/']);
@@ -60,9 +58,10 @@ export class HomeComponent {
       return;
     }
     this.blockedDocument = true
-    this.authenticationService.login(this.formGroup.value['username'], this.formGroup.value['password'])
+    let user: User = {username: this.formGroup.value['username'], password: this.formGroup.value['password']}
+    this.authenticationService.login(user)
       .subscribe({
-        next: () => {
+        next: (response) => {
           this.blockedDocument = false
           const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
           this.router.navigate([returnUrl]);
@@ -88,10 +87,10 @@ export class HomeComponent {
       username: this.formGroup.controls['username'].value,
       password: this.formGroup.controls['password'].value
     }
-    this.userService.registration(newUser).subscribe({
-      next: (msg) => {
+    this.authenticationService.registration(newUser).subscribe({
+      next: (response) => {
         this.blockedDocument = false;
-        this.messageService.add({severity: 'success', summary: 'Success', detail: msg.message, life: 3000})
+        this.messageService.add({severity: 'success', summary: 'Success', detail: 'Hello new user - ' + newUser.username, life: 3000})
         this.router.navigate(["/dashboard"]);
       },
       error: (response) => {

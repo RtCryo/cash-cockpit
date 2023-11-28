@@ -6,7 +6,6 @@ import org.myproject.cash.cockpit.api.exception.CreateNewTagException;
 import org.myproject.cash.cockpit.api.exception.TagNotFoundException;
 import org.myproject.cash.cockpit.api.mapper.ToDTOMapper;
 import org.myproject.cash.cockpit.api.repository.TagRepository;
-import org.myproject.cash.cockpit.api.repository.model.RuleDAO;
 import org.myproject.cash.cockpit.api.repository.model.TagDAO;
 import org.myproject.cash.cockpit.api.repository.model.TransactionDAO;
 import org.myproject.cash.cockpit.api.rest.model.TagDTO;

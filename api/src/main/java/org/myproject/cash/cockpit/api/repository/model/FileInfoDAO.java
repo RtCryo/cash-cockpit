@@ -31,7 +31,6 @@ public class FileInfoDAO extends AbstractDAO {
     @Column(name = "is_handled")
     private Boolean isHandled;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private UserDAO userDAO;
-
 }

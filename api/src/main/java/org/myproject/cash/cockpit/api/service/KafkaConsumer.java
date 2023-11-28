@@ -38,5 +38,7 @@ public class KafkaConsumer {
         }
     }
 
-    private record FileInfoFromKafkaModel (UUID id, UUID userId, LocalDate start, LocalDate end, Integer transactionCount) {}
+    private record FileInfoFromKafkaModel(UUID id, UUID userId, LocalDate start, LocalDate end,
+                                          Integer transactionCount) {
+    }
 }

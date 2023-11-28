@@ -1,9 +1,6 @@
 package org.myproject.cash.cockpit.api.repository.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -18,7 +15,6 @@ public class SenderDAO extends AbstractDAO {
     @Column(name = "sender_name", nullable = false)
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private UserDAO userDAO;
-
 }

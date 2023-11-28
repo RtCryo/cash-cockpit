@@ -1,19 +1,19 @@
 <div class="container">
     <p-toolbar>
         <div class = "p-toolbar-group-left filter">
-                <p-calendar 
-                    [(ngModel)]="rangeDates" 
-                    selectionMode="range" 
-                    [readonlyInput]="true" 
-                    inputId="range" 
+                <p-calendar
+                    [(ngModel)]="rangeDates"
+                    selectionMode="range"
+                    [readonlyInput]="true"
+                    inputId="range"
                     dateFormat="dd M yy"
                     [showIcon]="false"
                     placeholder="Data range"
                     [showClear]="true">
                 </p-calendar>
-                <p-multiSelect 
-                    [options]="tags" 
-                    [(ngModel)]="selectedTags" 
+                <p-multiSelect
+                    [options]="tags"
+                    [(ngModel)]="selectedTags"
                     optionLabel="tagName"
                     [filter]="false"
                     [showClear]="true"
@@ -26,9 +26,9 @@
             <button pButton pRipple icon="pi pi-plus" class="p-button-info" (click)="addNewTransaction()"></button>
         </div>
     </p-toolbar>
-    <p-table #dt 
-        [loading]="loading" 
-        [value]="transactions" 
+    <p-table #dt
+        [loading]="loading"
+        [value]="transactions"
         [scrollable]="true"
         scrollHeight="flex">
         <ng-template pTemplate="header">
@@ -95,7 +95,7 @@
         </div>
         <div class="p-inputgroup">
             <span class="p-inputgroup-addon"><i class="pi pi-user-plus"></i></span>
-            <input type="text" pInputText [(ngModel)]="transaction.destination.name" placeholder="Destination" disabled = "{{transaction.id.length !== 0}}">
+            <input type="text" pInputText [(ngModel)]="transaction.consumer.name" placeholder="Destination" disabled = "{{transaction.id.length !== 0}}">
         </div>
         <div class="p-inputgroup">
             <span class="p-inputgroup-addon"><i class="pi pi-user-minus"></i></span>
