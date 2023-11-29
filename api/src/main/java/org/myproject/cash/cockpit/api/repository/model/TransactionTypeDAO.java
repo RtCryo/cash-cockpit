@@ -1,8 +1,6 @@
 package org.myproject.cash.cockpit.api.repository.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 
@@ -18,4 +16,6 @@ public class TransactionTypeDAO extends AbstractDAO {
     @Column(name = "type")
     private String type;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private UserDAO userDAO;
 }

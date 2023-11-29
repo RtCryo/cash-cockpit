@@ -1,4 +1,4 @@
-export class Destination {
+export class Consumer {
     id!: string;
     name!: string;
 }

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Message, PrimeNGConfig } from 'primeng/api';
+import {User} from "./_model/User";
+import {AuthenticationService} from "./_service/authentication.service";
 
 @Component({
   selector: 'app-root',
@@ -7,10 +9,11 @@ import { Message, PrimeNGConfig } from 'primeng/api';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'postbank-pNG-UI';
   msgs: Message[] = [];
-  
-  constructor(private primengConfig: PrimeNGConfig) {}
+  currentUser!: User;
+  constructor(private primengConfig: PrimeNGConfig, private authenticationService: AuthenticationService) {
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+  }
 
     ngOnInit() {
         this.primengConfig.ripple = true;

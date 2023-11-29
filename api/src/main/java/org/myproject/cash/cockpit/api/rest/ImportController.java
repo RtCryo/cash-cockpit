@@ -3,7 +3,6 @@ package org.myproject.cash.cockpit.api.rest;
 import lombok.RequiredArgsConstructor;
 import org.myproject.cash.cockpit.api.rest.model.FileInfoDTO;
 import org.myproject.cash.cockpit.api.rest.model.MessageDTO;
-import org.myproject.cash.cockpit.api.service.KafkaProducer;
 import org.myproject.cash.cockpit.api.service.file.FileService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

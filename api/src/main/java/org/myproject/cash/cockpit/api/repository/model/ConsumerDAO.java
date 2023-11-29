@@ -1,8 +1,6 @@
 package org.myproject.cash.cockpit.api.repository.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -17,4 +15,6 @@ public final class ConsumerDAO extends AbstractDAO {
     @Column(nullable = false)
     private String name;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private UserDAO userDAO;
 }

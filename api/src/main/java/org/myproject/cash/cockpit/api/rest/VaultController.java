@@ -20,7 +20,8 @@ public class VaultController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<VaultDTO> showVault() { return vaultService.findAll();
+    public List<VaultDTO> showVault() {
+        return vaultService.findAll();
     }
 
     @PostMapping

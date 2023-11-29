@@ -30,6 +30,9 @@ public abstract class ToDAOMapper {
 
     public abstract TransactionInfoDAO toInfoDAO(TransactionInfoDTO dto);
 
+    @Mapping(target = "enabled", constant = "true")
+    public abstract UserDAO toUserDao(UserDTO userDTO);
+
     protected HasDAO toRuleHas(final String has) {
         return HasDAO.builder()
                 .has(has)

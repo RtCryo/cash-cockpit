@@ -26,7 +26,7 @@ export class TransactionsComponent implements OnInit{
     id: "",
     transactionInfo: { id: "", info: "" },
     transactionType: { id: "", type: "CUSTOM" },
-    destination: { id: "", name: "" },
+    consumer: { id: "", name: "" },
     sender: { id: "", name: "" },
     tags: [],
     total: "0",
@@ -48,7 +48,7 @@ export class TransactionsComponent implements OnInit{
   constructor(
     private transactionService: TransactionService,
     private transactionTypeService: TransactionTypeService,
-    private tagService: TagService, 
+    private tagService: TagService,
     private messageService: MessageService) {
     this.transaction = this.newTransaction;
     this.tagService.getAllTags().subscribe({
@@ -101,7 +101,7 @@ export class TransactionsComponent implements OnInit{
           if (this.selectedTags?.length > 0) {
             message += " and tags " + this.selectedTags.map(x => x.tagName)
           }
-          this.messageService.add({severity: 'warn', summary: 'Warning', 
+          this.messageService.add({severity: 'warn', summary: 'Warning',
           detail: message,
           life: 5000})
         }
@@ -150,7 +150,7 @@ export class TransactionsComponent implements OnInit{
     for (const element of this.transactions) {
       data.push([
         formatDateForPdf(element.transactionDate),
-        element.destination.name,
+        element.consumer.name,
         element.transactionType.type,
         this.getStringFromTags(element.tags),
         element.total,
@@ -210,7 +210,7 @@ export class TransactionsComponent implements OnInit{
 
     for(const element of this.tags) {
       let tag = element;
-        if (tag.tagName.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        if (tag.tagName.toLowerCase().startsWith(query.toLowerCase())) {
             filtered.push(tag);
         }
     }

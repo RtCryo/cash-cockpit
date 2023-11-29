@@ -1,66 +1,66 @@
 :host >>> .p-fileupload-choose:not(.p-disabled):hover {
-    background-color: rgb(255, 204, 0)!important;
+  background-color: rgb(255, 204, 0) !important;
 }
 
 :host >>> .p-button {
-    height: 2rem;
-    font-size: 0.9rem;
-    background-color: rgba(254, 204, 0, 0.558)!important;
-    color: #495057!important;
-    border-color: #4950577c!important;
+  height: 2rem;
+  font-size: 0.9rem;
+  background-color: rgba(254, 204, 0, 0.558) !important;
+  color: #495057 !important;
+  border-color: #4950577c !important;
 }
 
 :host >>> .p-button:focus {
-    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #ffc400, 0 1px 2px 0 black!important;
+  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #ffc400, 0 1px 2px 0 black !important;
 }
 
 :host >>> .p-toolbar {
-    padding: 0 0 0 1rem;
+  padding: 0 0 0 1rem;
 }
 
 :host >>> .p-progressbar {
-    display: none;
+  display: none;
 }
 
 :host >>> .p-button-label {
-    padding-bottom: 0.2rem;
+  padding-bottom: 0.2rem;
 }
 
 .spinner {
-    position: absolute;
-    z-index: 99;
-    right: 50%;
-    top: 20%
+  position: absolute;
+  z-index: 99;
+  right: 47.5%;;
+  top: 20%
 }
 
 :host >>> .custom-spinner .p-progress-spinner-circle {
-    animation: custom-progress-spinner-dash 1.5s ease-in-out infinite, custom-progress-spinner-color 6s ease-in-out infinite;
+  animation: custom-progress-spinner-dash 1.5s ease-in-out infinite, custom-progress-spinner-color 6s ease-in-out infinite;
 }
 
 @keyframes custom-progress-spinner-color {
-    100%,
-    0% {
-        stroke: #3281ff;
-    }
-    40% {
-        stroke: #ffd736;
-    }
-    80% {
-        stroke: #ff3737;
-    }
+  100%,
+  0% {
+    stroke: #3281ff;
+  }
+  40% {
+    stroke: #ffd736;
+  }
+  80% {
+    stroke: #ff3737;
+  }
 }
 
 @keyframes custom-progress-spinner-dash {
-    0% {
-        stroke-dasharray: 1, 200;
-        stroke-dashoffset: 0;
-    }
-    50% {
-        stroke-dasharray: 89, 200;
-        stroke-dashoffset: -35px;
-    }
-    100% {
-        stroke-dasharray: 89, 200;
-        stroke-dashoffset: -124px;
-    }
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35px;
+  }
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124px;
+  }
 }

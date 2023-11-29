@@ -11,7 +11,7 @@ export class NavbarComponent {
 
   ngOnInit() {
     this.items = [
-        { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: '/'},
+        { label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: 'dashboard'},
         { label: 'Transactions', icon: 'pi pi-fw pi-euro', routerLink: 'transactions' },
         { label: 'Tags', icon: 'pi pi-fw pi-tags', routerLink: 'tags' },
         { label: 'Rules', icon: 'pi pi-fw pi-exclamation-triangle', routerLink: 'rules' },
