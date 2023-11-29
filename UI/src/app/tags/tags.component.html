@@ -1,0 +1,74 @@
+<p-blockUI [blocked]="blockedDocument" [baseZIndex]="90"></p-blockUI>
+<p-progressSpinner class = "spinner" styleClass="custom-spinner" [hidden]="!blockedDocument" strokeWidth="5"></p-progressSpinner>
+<div class="container">
+    <p-toolbar>
+        <div class="p-toolbar-group-left">
+            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>
+            <button pButton pRipple icon="pi pi-trash" class="p-button-danger" (click)="confirmDelete()" [disabled]="selectedTags.length === 0"></button>
+        </div>
+    </p-toolbar>
+
+    <p-table #dt [loading]="loading" [value]="tags" [tableStyle]="{'min-width': '50rem'}"
+        [showCurrentPageReport]="true"
+        styleClass="p-datatable-sm"
+        [scrollable]="true" scrollHeight="78vh"
+        selectionMode="single"
+        [(selection)]="selectedTags">        
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 4rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th pSortableColumn="tagName" headers="Tag">Tag name<p-sortIcon field="tagName"></p-sortIcon></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-tag>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="tag"></p-tableCheckbox>
+                </td>
+                <td (click)="openUpdate(tag)">{{tag.tagName}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog
+    [style]="{width: '25rem'}" 
+    header="New tag:" 
+    [(visible)]="create"
+    [modal]="true"
+    [dismissableMask]="true"
+    [closeOnEscape]="true">
+    <div class="p-inputgroup">
+        <span class="p-inputgroup-addon"><i class="pi pi-tags"></i></span>
+        <input type="text" pInputText placeholder="Tag" [(ngModel)]="newTag">         
+    </div>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="createTag()" label="Ok" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog
+    [style]="{width: '25rem'}" 
+    header="Update tag:" 
+    [(visible)]="update"
+    [modal]="true"
+    [dismissableMask]="true">
+    <div class="p-inputgroup">
+        <span class="p-inputgroup-addon"><i class="pi pi-tags"></i></span>
+        <input type="text" pInputText placeholder="Tag" [(ngModel)]="newTag">         
+    </div>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="sendUpdateTag()" label="Ok" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog 
+    [style]="{width: '50vw'}" 
+    [baseZIndex]="10000" 
+    rejectButtonStyleClass="p-button-text" 
+    [closable]="false" 
+    key="positionDialog" 
+    position = "top">
+</p-confirmDialog>

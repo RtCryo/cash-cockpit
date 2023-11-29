@@ -1,0 +1,9 @@
+<div class="container">
+  <div *ngIf="currentUser; else elseBlock">Hallo, {{currentUser.username}}</div>
+  <ng-template #elseBlock>Hallo, Anon</ng-template>
+  <p-menu #menu [model]="items" [popup]="true"></p-menu>
+  <button (click)="menu.toggle($event)">
+    <p-image [src]="imgLink" width="40px" height="40px"></p-image>
+  </button>
+</div>
+

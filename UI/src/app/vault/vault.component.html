@@ -1,0 +1,73 @@
+<p-blockUI [blocked]="blockedDocument" [baseZIndex]="90"></p-blockUI>
+<p-progressSpinner class = "spinner" styleClass="custom-spinner" [hidden]="!blockedDocument" strokeWidth="5"></p-progressSpinner>
+<div class="container">
+    <p-toolbar>
+        <div></div>
+        <div class="p-toolbar-group-right">
+            <button pButton pRipple icon="pi pi-plus" class="p-button-info" (click)="addNewVault()"></button>
+        </div>
+    </p-toolbar>
+    <p-table 
+        [loading]="loading" 
+        [value]="vault" 
+        [tableStyle]="{'min-width': '50rem'}"
+        [showCurrentPageReport]="true"
+        styleClass="p-datatable-sm"
+        [scrollable]="true" scrollHeight="78vh"
+        selectionMode="single">
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="date" headers="Date">Date<p-sortIcon field="date"></p-sortIcon></th>
+                <th pSortableColumn="sum" headers="Sum">Sum<p-sortIcon field="sum"></p-sortIcon></th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-t>
+            <tr>
+                <td>{{t.date | truncate: [20] | date: 'longDate'}}</td>
+                <td>
+                    <div class="total" [ngClass] = "(+t.sum >= 0)?'green':'red'">
+                        <div [hidden] = "+t.sum < 0">+</div>
+                        <div>{{t.sum | currency: 'EUR'}}</div>
+                    </div>
+                </td>
+                <td class="end">
+                    <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-sm p-button-raised p-button-warning" (click)="deleteVault(t)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class = "report">
+                <div class="total" [ngClass] = "summ() > 0?'green':'red'">
+                    Total: {{summ() | currency: 'EUR'}}
+                </div>
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog
+    [style]="{width: '25rem'}" 
+    header="New amount:" 
+    [(visible)]="create"
+    [modal]="true"
+    [dismissableMask]="true"
+    [closeOnEscape]="true">
+    <div class="p-inputgroup">
+        <span class="p-inputgroup-addon"><i class="pi pi-tags"></i></span>
+        <p-inputNumber aria-describedby = "amount-help" [(ngModel)]="newAmount" mode="currency" inputId="currency-germany" currency="EUR" locale="de-DE"></p-inputNumber> 
+    </div>
+    <small id="amount-help" class="block padding-left-3">Only digits</small>
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="saveVault()" label="Ok" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog 
+    [style]="{width: '50vw'}" 
+    [baseZIndex]="10000" 
+    rejectButtonStyleClass="p-button-text" 
+    [closable]="false" 
+    key="positionDialog" 
+    position = "top">
+</p-confirmDialog>
