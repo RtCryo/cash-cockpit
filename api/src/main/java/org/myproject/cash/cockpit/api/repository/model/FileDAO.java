@@ -1,9 +1,6 @@
 package org.myproject.cash.cockpit.api.repository.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Lob;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -18,5 +15,9 @@ public class FileDAO extends AbstractDAO {
     @Lob
     @Column
     private byte[] fileByte;
+
+    @JoinColumn(name = "user_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private UserDAO userDAO;
 
 }

@@ -10,14 +10,6 @@ import org.springframework.kafka.config.TopicBuilder;
 public class KafkaConfig {
 
     @Bean
-    public NewTopic consumerTopic(@Value("${cash.cockpit.kafka.topic.consumer.name}") final String topicName) {
-        return TopicBuilder.name(topicName)
-                .partitions(1)
-                .replicas(1)
-                .build();
-    }
-
-    @Bean
     public NewTopic producerTopic(@Value("${cash.cockpit.kafka.topic.producer.name}") final String topicName) {
         return TopicBuilder.name(topicName)
                 .partitions(1)

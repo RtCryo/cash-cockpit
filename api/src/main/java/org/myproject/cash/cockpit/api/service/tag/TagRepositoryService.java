@@ -8,7 +8,9 @@ import org.myproject.cash.cockpit.api.mapper.ToDTOMapper;
 import org.myproject.cash.cockpit.api.repository.TagRepository;
 import org.myproject.cash.cockpit.api.repository.model.TagDAO;
 import org.myproject.cash.cockpit.api.repository.model.TransactionDAO;
+import org.myproject.cash.cockpit.api.repository.model.UserDAO;
 import org.myproject.cash.cockpit.api.rest.model.TagDTO;
+import org.myproject.cash.cockpit.api.service.UserService;
 import org.myproject.cash.cockpit.api.service.rule.RuleRepositoryService;
 import org.myproject.cash.cockpit.api.service.transaction.TransactionRepositoryService;
 import org.springframework.stereotype.Service;
@@ -32,29 +34,30 @@ public class TagRepositoryService {
     private final ToDTOMapper mapper;
 
     public long count() {
-        return tagRepository.count();
-    }
-
-    public TagDAO findById(final UUID id) {
-        return tagRepository.findById(id).orElseThrow(() -> {
-            log.error("Tag id: [" + id + "] not found");
-            return new TagNotFoundException();
-        });
+        return tagRepository.countByUserDAO(UserService.getUser());
     }
 
     public List<TagDTO> findAllTags() {
-        return tagRepository.findAll().stream().map(mapper::toTagDTO).toList();
+        return tagRepository.findAllByUserDAO(UserService.getUser())
+                .stream()
+                .map(mapper::toTagDTO)
+                .toList();
     }
 
+    @Transactional
     public void createTag(final String newTagName) {
         validateTag(newTagName);
-        TagDAO tagDAO = TagDAO.builder().tagName(newTagName).build();
+        TagDAO tagDAO = TagDAO.builder()
+                .tagName(newTagName)
+                .userDAO(UserService.getUser())
+                .build();
         tagRepository.save(tagDAO);
     }
 
     public void updateTag(final String tagId, final TagDTO updateTag) {
         validateTag(updateTag.tagName());
-        TagDAO tagDAO = tagRepository.findById(UUID.fromString(tagId)).orElseThrow(TagNotFoundException::new);
+        TagDAO tagDAO = tagRepository.findByUserDAOAndId(UserService.getUser(), UUID.fromString(tagId))
+                .orElseThrow(TagNotFoundException::new);
         tagDAO.setTagName(updateTag.tagName());
         tagRepository.save(tagDAO);
     }
@@ -66,8 +69,13 @@ public class TagRepositoryService {
     }
 
     public void deleteTags(final Set<TagDTO> tagToDelete) {
-        Set<UUID> tagIdToDelete = tagToDelete.stream().map(TagDTO::id).collect(Collectors.toSet());
-        Set<TagDAO> tagDaoToDelete = new HashSet<>(tagRepository.findAllById(tagIdToDelete));
+        Set<UUID> tagIdToDelete = tagToDelete.stream()
+                .map(TagDTO::id)
+                .collect(Collectors.toSet());
+
+        Set<TagDAO> tagDaoToDelete =
+                new HashSet<>(tagRepository.findAllByUserDAOAndIdIn(UserService.getUser(), tagIdToDelete));
+
         removeTagFromTransactions(tagDaoToDelete);
         removeRulesByTag(tagDaoToDelete);
 

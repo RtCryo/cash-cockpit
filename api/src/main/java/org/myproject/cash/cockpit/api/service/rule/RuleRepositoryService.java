@@ -8,9 +8,11 @@ import org.myproject.cash.cockpit.api.repository.RuleRepository;
 import org.myproject.cash.cockpit.api.repository.model.RuleDAO;
 import org.myproject.cash.cockpit.api.repository.model.TagDAO;
 import org.myproject.cash.cockpit.api.rest.model.RuleDTO;
+import org.myproject.cash.cockpit.api.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -28,22 +30,32 @@ public class RuleRepositoryService {
     }
 
     public List<RuleDTO> getAllRules() {
-        return ruleRepository.findAll().stream()
+        return ruleRepository.findAllByUserDAO(UserService.getUser())
+                .stream()
                 .map(toDTOMapper::toRuleDTO)
                 .toList();
     }
 
     public void createRule(final RuleDTO ruleDto) {
-        ruleRepository.save(toDAOMapper.toRuleDAO(ruleDto));
+        RuleDAO ruleDAO = toDAOMapper.toRuleDAO(ruleDto);
+        ruleDAO.setUserDAO(UserService.getUser());
+        ruleRepository.save(ruleDAO);
     }
 
     public void deleteAllRule(final List<UUID> ruleIds) {
-        ruleRepository.deleteAllById(ruleIds);
+        List<UUID> listToDelete = new ArrayList<>();
+        ruleIds.forEach(uuid -> {
+            if (ruleRepository.existsByUserDAOAndId(UserService.getUser(), uuid)) {
+                listToDelete.add(uuid);
+            }
+        });
+        ruleRepository.deleteAllById(listToDelete);
     }
 
     @Transactional
     public void update(final RuleDTO ruleDto, final UUID ruleId) {
-        RuleDAO ruleToUpdate = ruleRepository.findById(ruleId).orElseThrow(RuleNotFoundException::new);
+        RuleDAO ruleToUpdate = ruleRepository.findAllByUserDAOAndId(UserService.getUser(), ruleId)
+                .orElseThrow(RuleNotFoundException::new);
         RuleDAO newRule = toDAOMapper.toRuleDAO(ruleDto);
         ruleToUpdate.setArea(newRule.getArea());
         ruleToUpdate.setHas(newRule.getHas());
@@ -52,6 +64,6 @@ public class RuleRepositoryService {
     }
 
     public void deleteAllByTag(final Set<TagDAO> tagIdToDelete) {
-        ruleRepository.deleteAllByTagIn(tagIdToDelete);
+        ruleRepository.deleteAllByUserDAOAndTagIn(UserService.getUser(), tagIdToDelete);
     }
 }

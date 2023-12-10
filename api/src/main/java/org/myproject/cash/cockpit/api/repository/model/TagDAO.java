@@ -24,6 +24,7 @@ public class TagDAO extends AbstractDAO {
             CascadeType.REFRESH})
     private List<TransactionDAO> transactions;
 
+    @JoinColumn(name = "user_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private UserDAO userDAO;
 }

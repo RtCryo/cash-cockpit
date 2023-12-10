@@ -10,6 +10,7 @@ import org.myproject.cash.cockpit.api.repository.model.TagDAO;
 import org.myproject.cash.cockpit.api.repository.model.TransactionDAO;
 import org.myproject.cash.cockpit.api.repository.model.TransactionTypeDAO;
 import org.myproject.cash.cockpit.api.rest.model.TransactionDTO;
+import org.myproject.cash.cockpit.api.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -47,14 +48,14 @@ public class TransactionRepositoryService {
             return this.findTransactionsWithDateFilter(localDateStart, localDateEnd);
         }
         return transactionRepository
-                .findByDateBetweenAndTagsOrderByDate(localDateStart, localDateEnd, tags, tags.size()).stream()
+                .findByDateBetweenAndTagsOrderByDate(localDateStart, localDateEnd, tags, tags.size(), UserService.getUser().getId()).stream()
                 .map(toDTOMapper::toTransactionDTO)
                 .toList();
     }
 
     public List<TransactionDTO> findTransactionsWithDateFilter(final LocalDate start, final LocalDate end) {
         validateDatepicker(start, end);
-        return transactionRepository.findAllByTransactionDateBetweenOrderByTransactionDate(start, end)
+        return transactionRepository.findAllByUserDAOAndTransactionDateBetweenOrderByTransactionDate(UserService.getUser(), start, end)
                 .stream()
                 .map(toDTOMapper::toTransactionDTO)
                 .toList();

@@ -2,6 +2,7 @@ package org.myproject.cash.cockpit.api.repository;
 
 import org.myproject.cash.cockpit.api.repository.model.TagDAO;
 import org.myproject.cash.cockpit.api.repository.model.TransactionDAO;
+import org.myproject.cash.cockpit.api.repository.model.UserDAO;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.ListCrudRepository;
 
@@ -12,7 +13,7 @@ import java.util.UUID;
 public interface TransactionRepository extends ListCrudRepository<TransactionDAO, UUID> {
     List<TransactionDAO> findAllByTagsIn(Iterable<TagDAO> tagDAO);
 
-    List<TransactionDAO> findAllByTransactionDateBetweenOrderByTransactionDate(LocalDate start, LocalDate end);
+    List<TransactionDAO> findAllByUserDAOAndTransactionDateBetweenOrderByTransactionDate(UserDAO userDAO, LocalDate start, LocalDate end);
 
     @Query(nativeQuery = true,
             value = "select t.*\n" +
@@ -24,9 +25,10 @@ public interface TransactionRepository extends ListCrudRepository<TransactionDAO
                     "             join tag t2 on tt.tag_id = t2.id\n" +
                     "    where t2.id in :transactionTag\n" +
                     "      and t.date between :transactionDate and :transactionDate2" +
+                    "      and t.user_id = :userId" +
                     "    group by t.id\n" +
                     "    having count(*) = :tagSize\n" +
                     ") ids on ids.id = t.id order by t.date")
-    List<TransactionDAO> findByDateBetweenAndTagsOrderByDate(LocalDate transactionDate, LocalDate transactionDate2, Iterable<UUID> transactionTag, int tagSize);
+    List<TransactionDAO> findByDateBetweenAndTagsOrderByDate(LocalDate transactionDate, LocalDate transactionDate2, Iterable<UUID> transactionTag, int tagSize, UUID userId);
 
 }

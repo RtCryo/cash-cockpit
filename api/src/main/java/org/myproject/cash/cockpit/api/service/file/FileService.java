@@ -2,18 +2,19 @@ package org.myproject.cash.cockpit.api.service.file;
 
 import lombok.RequiredArgsConstructor;
 import org.myproject.cash.cockpit.api.exception.CreateFileDAOException;
+import org.myproject.cash.cockpit.api.exception.ImportFileErrorException;
 import org.myproject.cash.cockpit.api.mapper.ToDTOMapper;
 import org.myproject.cash.cockpit.api.repository.model.FileDAO;
 import org.myproject.cash.cockpit.api.repository.model.FileInfoDAO;
 import org.myproject.cash.cockpit.api.rest.model.FileDTO;
 import org.myproject.cash.cockpit.api.rest.model.FileInfoDTO;
 import org.myproject.cash.cockpit.api.service.KafkaProducer;
+import org.myproject.cash.cockpit.api.service.UserService;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -38,12 +39,20 @@ public class FileService {
 
     public void importFile(final List<MultipartFile> files) {
         files.forEach(multipartFile -> {
-            FileDAO fileDAO = getFileDAOFromMultipartFile(multipartFile);
-            FileDAO saved = fileRepositoryService.save(fileDAO);
-            FileInfoDAO fileInfoDAO = getFileInfoDAO(multipartFile, saved);
-            fileInfoRepositoryService.save(fileInfoDAO);
-            kafkaProducer.send(Objects.requireNonNull(saved.getId()), saved.getFileByte());
+            try {
+                FileInfoDAO savedFIDao = fileProcess(multipartFile);
+                kafkaProducer.send(Objects.requireNonNull(savedFIDao.getId()), multipartFile.getBytes());
+            } catch (Exception e) {
+                throw new ImportFileErrorException(e);
+            }
         });
+    }
+
+    protected FileInfoDAO fileProcess(final MultipartFile multipartFile) {
+        FileDAO fileDAO = getFileDAOFromMultipartFile(multipartFile);
+        FileDAO saved = fileRepositoryService.save(fileDAO);
+        FileInfoDAO fileInfoDAO = getFileInfoDAO(multipartFile, saved);
+        return fileInfoRepositoryService.save(fileInfoDAO);
     }
 
     private FileInfoDAO getFileInfoDAO(final MultipartFile multipartFile, final FileDAO saved) {
@@ -54,6 +63,7 @@ public class FileService {
                 .type(multipartFile.getContentType())
                 .name(multipartFile.getOriginalFilename())
                 .bankStatement(saved)
+                .userDAO(UserService.getUser())
                 .build();
     }
 
@@ -61,17 +71,10 @@ public class FileService {
         try {
             return FileDAO.builder()
                     .fileByte(multipartFile.getBytes())
+                    .userDAO(UserService.getUser())
                     .build();
         } catch (IOException e) {
             throw new CreateFileDAOException(e);
         }
-    }
-
-    public void updateFileInfoFromBroker(final UUID id, final LocalDate start, final LocalDate end) {
-        FileInfoDAO infoDAO = fileInfoRepositoryService.findById(id);
-        infoDAO.setStart(start);
-        infoDAO.setEnd(end);
-        infoDAO.setIsHandled(true);
-        fileInfoRepositoryService.save(infoDAO);
     }
 }

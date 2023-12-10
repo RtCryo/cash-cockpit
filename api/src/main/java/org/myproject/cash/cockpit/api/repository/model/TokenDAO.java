@@ -22,8 +22,8 @@ public class TokenDAO extends AbstractDAO {
 
     private boolean expired;
 
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @ManyToOne(fetch = FetchType.LAZY)
     private UserDAO user;
 
 }

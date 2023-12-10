@@ -6,6 +6,7 @@ import org.myproject.cash.cockpit.api.mapper.ToDTOMapper;
 import org.myproject.cash.cockpit.api.repository.ConsumerRepository;
 import org.myproject.cash.cockpit.api.repository.model.ConsumerDAO;
 import org.myproject.cash.cockpit.api.rest.model.ConsumerDTO;
+import org.myproject.cash.cockpit.api.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,15 +20,20 @@ public class ConsumerRepositoryService {
     private final ToDTOMapper toDTOMapper;
 
     public List<ConsumerDTO> findAllConsumer() {
-        return consumerRepository.findAll().stream().map(toDTOMapper::toConsumerDTO).toList();
+        return consumerRepository.findAllByUserDAO(UserService.getUser())
+                .stream()
+                .map(toDTOMapper::toConsumerDTO)
+                .toList();
     }
 
     public ConsumerDTO save(final ConsumerDTO consumerDTO) {
-        ConsumerDAO savedConsumer = consumerRepository.save(toDAOMapper.toConsumerDAO(consumerDTO));
+        ConsumerDAO consumerDAO = toDAOMapper.toConsumerDAO(consumerDTO);
+        consumerDAO.setUserDAO(UserService.getUser());
+        ConsumerDAO savedConsumer = consumerRepository.save(consumerDAO);
         return toDTOMapper.toConsumerDTO(savedConsumer);
     }
 
     public long count() {
-        return consumerRepository.count();
+        return consumerRepository.countByUserDAO(UserService.getUser());
     }
 }
