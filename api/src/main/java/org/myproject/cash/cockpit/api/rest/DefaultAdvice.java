@@ -13,7 +13,7 @@ public class DefaultAdvice extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ServiceRuntimeException.class)
     public ResponseEntity<MessageDTO> handleDefaultError(final ServiceRuntimeException exception) {
-        return new ResponseEntity<>(MessageDTO.create(500, exception.getMessage()), HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(MessageDTO.create(500, exception.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }

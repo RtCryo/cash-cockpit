@@ -21,9 +21,6 @@ public class UserDAO extends AbstractDAO implements UserDetails {
     private Role role;
 
     @OneToMany(mappedBy = "user")
-    @JoinTable(name = "user_token",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "token_id"))
     private List<TokenDAO> tokens;
 
     @Column(name = "username")

@@ -15,10 +15,7 @@ export class UserDashboardComponent {
   currentUser!: User;
   items: MenuItem[];
 
-  constructor(
-    private router: Router,
-    private authenticationService: AuthenticationService
-  ) {
+  constructor(private router: Router, private authenticationService: AuthenticationService) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     this.items = [
       {

@@ -59,7 +59,7 @@ public class AuthenticationService {
                     )
             );
         } catch (AuthenticationException ex) {
-            throw new UserNotFoundException(request.username() + " not found!");
+            throw new UserNotFoundException(ex.getMessage());
         }
         UserDAO userDAO = repository.findByUsername(request.username())
                 .orElseThrow();

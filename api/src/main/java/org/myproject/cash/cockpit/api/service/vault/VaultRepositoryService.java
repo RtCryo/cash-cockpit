@@ -5,6 +5,7 @@ import org.myproject.cash.cockpit.api.mapper.ToDTOMapper;
 import org.myproject.cash.cockpit.api.repository.VaultRepository;
 import org.myproject.cash.cockpit.api.repository.model.VaultDAO;
 import org.myproject.cash.cockpit.api.rest.model.VaultDTO;
+import org.myproject.cash.cockpit.api.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,11 +19,15 @@ public class VaultRepositoryService {
     private final ToDTOMapper toDTOMapper;
 
     public double getTotalSum() {
-        return vaultRepository.findAll().stream().map(VaultDAO::getSum).reduce(0d, Double::sum);
+        return vaultRepository.findAllByUserDAO(UserService.getUser())
+                .stream()
+                .map(VaultDAO::getSum)
+                .reduce(0d, Double::sum);
     }
 
     public List<VaultDTO> findAll() {
-        return vaultRepository.findAll().stream()
+        return vaultRepository.findAllByUserDAO(UserService.getUser())
+                .stream()
                 .map(toDTOMapper::toVaultDTO)
                 .toList();
     }
@@ -30,10 +35,11 @@ public class VaultRepositoryService {
     public void saveVault(final double sum) {
         vaultRepository.save(VaultDAO.builder()
                 .sum(sum)
+                .userDAO(UserService.getUser())
                 .build());
     }
 
     public void deleteVault(final UUID id) {
-        vaultRepository.deleteById(id);
+        vaultRepository.deleteAllByUserDAOAndId(UserService.getUser(), id);
     }
 }

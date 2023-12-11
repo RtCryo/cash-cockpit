@@ -15,6 +15,7 @@ public class SenderDAO extends AbstractDAO {
     @Column(name = "sender_name", nullable = false)
     private String name;
 
+    @JoinColumn(name = "user_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private UserDAO userDAO;
 }

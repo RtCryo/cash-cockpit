@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -31,6 +32,7 @@ public class FileInfoDAO extends AbstractDAO {
     @Column(name = "is_handled")
     private Boolean isHandled;
 
+    @JoinColumn(name = "user_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private UserDAO userDAO;
 }

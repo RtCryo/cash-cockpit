@@ -9,11 +9,18 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static org.myproject.cash.cockpit.api.repository.model.MyPermission.*;
+
 @Getter
 @RequiredArgsConstructor
 public enum Role {
 
-    USER(Collections.emptySet());
+    USER(Collections.emptySet()),
+    ADMIN(Set.of(
+            ADMIN_READ,
+            ADMIN_UPDATE,
+            ADMIN_DELETE,
+            ADMIN_CREATE));
 
     private final Set<MyPermission> permissions;
 

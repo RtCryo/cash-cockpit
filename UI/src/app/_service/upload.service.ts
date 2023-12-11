@@ -11,14 +11,14 @@ export class UploadService {
   constructor(private http: HttpClient) { }
 
   upload(files: File[]){
-    const formData: FormData = new FormData();
-    for(let t = 0; t < files.length; t++) {
-      formData.append("files", files[t], files[t].name)
+    let formData: FormData = new FormData();
+    for(const element of files) {
+      formData.append("files", element, element.name)
     }
     return this.http.post<MessageDto>(`${environment.hostUrl}/import`, formData);
  }
 
-  getStatemenList() {
+  getStatementList() {
       return this.http.get(`${environment.hostUrl}/statement`);
   }
 

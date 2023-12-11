@@ -16,16 +16,16 @@ export class FilesComponent {
   loading = false
 
   constructor(
-    private uploadService: UploadService, 
-    private transactionService: TransactionService, 
-    private route: Router, 
+    private uploadService: UploadService,
+    private transactionService: TransactionService,
+    private route: Router,
     private messageService: MessageService) {
     this.refreshFileList();
   }
 
   refreshFileList() {
     this.loading = true
-    this.uploadService.getStatemenList().subscribe({
+    this.uploadService.getStatementList().subscribe({
       next: (event: any) => {
         this.fileInfoList = event;
         this.loading = false;

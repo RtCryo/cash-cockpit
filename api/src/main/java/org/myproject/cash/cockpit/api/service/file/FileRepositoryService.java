@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.myproject.cash.cockpit.api.exception.FileIsNotExistException;
 import org.myproject.cash.cockpit.api.repository.FileRepository;
 import org.myproject.cash.cockpit.api.repository.model.FileDAO;
+import org.myproject.cash.cockpit.api.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -22,7 +23,7 @@ public class FileRepositoryService {
     }
 
     public long count() {
-        return fileRepository.count();
+        return fileRepository.countByUserDAO(UserService.getUser());
     }
 
     public FileDAO save(final FileDAO fileDAO) {

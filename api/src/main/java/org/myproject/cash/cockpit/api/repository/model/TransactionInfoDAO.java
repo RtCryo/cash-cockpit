@@ -15,6 +15,7 @@ public class TransactionInfoDAO extends AbstractDAO {
     @Column(name = "info", columnDefinition = "TEXT")
     private String info;
 
+    @JoinColumn(name = "user_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private UserDAO userDAO;
 

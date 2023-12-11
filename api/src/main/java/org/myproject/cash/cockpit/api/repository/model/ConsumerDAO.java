@@ -15,6 +15,7 @@ public final class ConsumerDAO extends AbstractDAO {
     @Column(nullable = false)
     private String name;
 
+    @JoinColumn(name = "user_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private UserDAO userDAO;
 }

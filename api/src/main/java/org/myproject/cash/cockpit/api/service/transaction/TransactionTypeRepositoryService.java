@@ -5,6 +5,7 @@ import org.myproject.cash.cockpit.api.mapper.ToDTOMapper;
 import org.myproject.cash.cockpit.api.repository.TransactionTypeRepository;
 import org.myproject.cash.cockpit.api.repository.model.TransactionTypeDAO;
 import org.myproject.cash.cockpit.api.rest.model.TransactionTypeDTO;
+import org.myproject.cash.cockpit.api.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,19 +18,20 @@ public class TransactionTypeRepositoryService {
     private final ToDTOMapper toDTOMapper;
 
     public TransactionTypeDAO findByType(final String type) {
-        return transactionTypeRepository.findByType(type)
+        return transactionTypeRepository.findByUserDAOAndType(UserService.getUser(), type)
                 .orElseGet(this::createCustomType);
     }
 
     private TransactionTypeDAO createCustomType() {
         return transactionTypeRepository.save(
                 TransactionTypeDAO.builder()
+                        .userDAO(UserService.getUser())
                         .type("CUSTOM")
                         .build());
     }
 
     public List<TransactionTypeDTO> findAllTransactionTypes() {
-        return transactionTypeRepository.findAll()
+        return transactionTypeRepository.findAllByUserDAO(UserService.getUser())
                 .stream()
                 .map(toDTOMapper::toTypeDTO)
                 .toList();

@@ -47,6 +47,7 @@ public class TransactionDAO extends AbstractDAO {
     @Column(name = "total")
     private double total;
 
+    @JoinColumn(name = "user_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private UserDAO userDAO;
 }
