@@ -1,9 +1,6 @@
 package org.myproject.cash.cockpit.handler.consumer;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.UUID;
 
@@ -11,6 +8,7 @@ import java.util.UUID;
 @Getter
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class FileInfoFacade {
     private UUID userId;
     private UUID fileInfoId;
