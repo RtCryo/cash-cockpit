@@ -13,12 +13,8 @@ public class MessengerService {
 
     private final ReportProducer reportProducer;
 
-    public void sendReport(final UUID userId, final UUID fileInfoId, final int found, final int saved) {
-        reportProducer.send(ReportDto.builder().userId(userId).fileInfoId(fileInfoId).found(found).saved(saved).successful(true).build());
-    }
-
-    public void sendReport(final UUID userId, final UUID fileInfoId, final String msgError) {
-        reportProducer.send(ReportDto.builder().userId(userId).fileInfoId(fileInfoId).successful(false).errorMsg(msgError).build());
+    public void sendReport(final UUID userId, final UUID fileInfoId, final String msg, final boolean result) {
+        reportProducer.send(ReportDto.builder().userId(userId).fileInfoId(fileInfoId).successful(result).msg(msg).build());
     }
 
 }

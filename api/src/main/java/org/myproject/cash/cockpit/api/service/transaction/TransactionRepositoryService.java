@@ -48,14 +48,14 @@ public class TransactionRepositoryService {
             return this.findTransactionsWithDateFilter(localDateStart, localDateEnd);
         }
         return transactionRepository
-                .findByDateBetweenAndTagsOrderByDate(localDateStart, localDateEnd, tags, tags.size(), UserService.getUser().getId()).stream()
+                .findByDateBetweenAndTagsOrderByDate(localDateStart, localDateEnd, tags, tags.size(), UserService.getCurrentUser().getId()).stream()
                 .map(toDTOMapper::toTransactionDTO)
                 .toList();
     }
 
     public List<TransactionDTO> findTransactionsWithDateFilter(final LocalDate start, final LocalDate end) {
         validateDatepicker(start, end);
-        return transactionRepository.findAllByUserDAOAndTransactionDateBetweenOrderByTransactionDate(UserService.getUser(), start, end)
+        return transactionRepository.findAllByUserDAOAndTransactionDateBetweenOrderByTransactionDate(UserService.getCurrentUser(), start, end)
                 .stream()
                 .map(toDTOMapper::toTransactionDTO)
                 .toList();

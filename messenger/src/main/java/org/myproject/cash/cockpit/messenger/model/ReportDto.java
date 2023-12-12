@@ -1,4 +1,4 @@
-package org.myproject.cash.cockpit.handler.producer;
+package org.myproject.cash.cockpit.messenger.model;
 
 import lombok.Builder;
 
