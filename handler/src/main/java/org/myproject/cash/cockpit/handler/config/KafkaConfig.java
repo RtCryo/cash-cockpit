@@ -17,4 +17,12 @@ public class KafkaConfig {
                 .build();
     }
 
+    @Bean
+    public NewTopic producerTopic(@Value("${cash.cockpit.kafka.topic.producer.name}") final String topicName) {
+        return TopicBuilder.name(topicName)
+                .partitions(1)
+                .replicas(1)
+                .build();
+    }
+
 }

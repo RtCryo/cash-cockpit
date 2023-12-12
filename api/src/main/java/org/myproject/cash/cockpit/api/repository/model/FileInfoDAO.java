@@ -35,4 +35,7 @@ public class FileInfoDAO extends AbstractDAO {
     @JoinColumn(name = "user_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private UserDAO userDAO;
+
+    @Column(name = "status")
+    private ProgressStatus status;
 }

@@ -23,12 +23,13 @@ export class HomeComponent {
     private authenticationService: AuthenticationService,
     private messageService: MessageService
   ) {
-    if (this.authenticationService.currentUserValue) {
-      this.router.navigate(['/']);
-    }
+
   }
 
   ngOnInit() {
+    if (this.authenticationService.currentUserValue) {
+      this.router.navigate(['/dashboard']);
+    }
     this.formGroup = new FormGroup({
       username: new FormControl('', [Validators.required, Validators.pattern(
         '[A-Za-z0-9]*'

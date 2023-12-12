@@ -6,10 +6,12 @@ import org.myproject.cash.cockpit.api.exception.ImportFileErrorException;
 import org.myproject.cash.cockpit.api.mapper.ToDTOMapper;
 import org.myproject.cash.cockpit.api.repository.model.FileDAO;
 import org.myproject.cash.cockpit.api.repository.model.FileInfoDAO;
+import org.myproject.cash.cockpit.api.repository.model.ProgressStatus;
 import org.myproject.cash.cockpit.api.rest.model.FileDTO;
 import org.myproject.cash.cockpit.api.rest.model.FileInfoDTO;
 import org.myproject.cash.cockpit.api.service.KafkaProducer;
 import org.myproject.cash.cockpit.api.service.UserService;
+import org.myproject.cash.cockpit.api.service.model.FileInfoFacade;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -41,7 +43,11 @@ public class FileService {
         files.forEach(multipartFile -> {
             try {
                 FileInfoDAO savedFIDao = fileProcess(multipartFile);
-                kafkaProducer.send(Objects.requireNonNull(savedFIDao.getId()), multipartFile.getBytes());
+                kafkaProducer.send(FileInfoFacade.builder()
+                        .fileInfoId(savedFIDao.getId())
+                        .userId(UserService.getUser().getId())
+                        .file(multipartFile.getBytes())
+                        .build());
             } catch (Exception e) {
                 throw new ImportFileErrorException(e);
             }
@@ -64,6 +70,7 @@ public class FileService {
                 .name(multipartFile.getOriginalFilename())
                 .bankStatement(saved)
                 .userDAO(UserService.getUser())
+                .status(ProgressStatus.IN_PROGRESS)
                 .build();
     }
 
