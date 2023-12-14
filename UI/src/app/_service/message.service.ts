@@ -17,13 +17,17 @@ export class PollingMessageService {
 
   startPolling() {
     this.pollSubscription = interval(this.pollInterval).pipe(
-      switchMap(() => this.http.get(this.apiUrl))
+      switchMap(() => this.http.get<string[]>(this.apiUrl + "/message"))
     ).subscribe({
-      next: (response) => {
-        this.messageService.add({severity: 'error', summary: 'Error', detail: "Can't load report", life: 3000})
+      next: (response: string[]) => {
+        if (response.length == 0) return
+        response.forEach(value => {
+          this.messageService.add({severity: 'info', summary: 'Info', detail: value, life: 3000})
+          this.delay(4000);
+        })
       },
       error: (response) => {
-        console.error('Error fetching data:', response);
+        console.error('Error message service:', response);
       }
     })
   }
@@ -32,5 +36,9 @@ export class PollingMessageService {
     if (this.pollSubscription) {
       this.pollSubscription.unsubscribe();
     }
+  }
+
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 }

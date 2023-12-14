@@ -4,8 +4,10 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
-public record TransactionDTO(@NotNull LocalDate transactionDate,
+public record TransactionDTO(UUID id,
+                             @NotNull LocalDate transactionDate,
                              @NotNull TransactionInfoDTO transactionInfo,
                              TransactionTypeDTO transactionType,
                              @NotNull ConsumerDTO consumer,

@@ -48,7 +48,7 @@ public class AuthorizeUrlsSecurityConfig {
         return http.build();
     }
 
-    public CorsConfigurationSource corsConfigurationSource() {
+    private CorsConfigurationSource corsConfigurationSource() {
         final CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOriginPatterns(List.of("*"));
         configuration.setAllowedMethods(List.of("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH"));
