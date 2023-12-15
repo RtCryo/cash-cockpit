@@ -34,7 +34,7 @@
         <ng-template pTemplate="header">
             <tr>
                 <th pSortableColumn="transactionDate" style="width:15%" headers="Date">Date<p-sortIcon field="transactionDate"></p-sortIcon></th>
-                <th pSortableColumn="destination.name" style="width:25%" headers="Destination">Destination<p-sortIcon field="destination.name"></p-sortIcon></th>
+                <th pSortableColumn="consumer.name" style="width:25%" headers="Consumer">Consumer<p-sortIcon field="consumer.name"></p-sortIcon></th>
                 <th pSortableColumn="transactionType.type" style="width:20%" headers="Type">Type<p-sortIcon field="transactionType.type"></p-sortIcon></th>
                 <th style="width:30%" headers="tags">Tags</th>
                 <th pSortableColumn="total" style="width:10%" class="end" headers="Total">Sum<p-sortIcon field="total"></p-sortIcon></th>
@@ -43,7 +43,7 @@
         <ng-template pTemplate="body" let-t>
             <tr (click)="showModalDialog(t)">
                 <td>{{t.transactionDate | truncate: [20] | date: 'longDate'}}</td>
-                <td>{{t.destination.name | truncate:[45]}}</td>
+                <td>{{t.consumer.name | truncate:[45]}}</td>
                 <td>{{t.transactionType.type | truncate:[25]}}</td>
                 <td>
                     <p-tag class = "margin-right-02" *ngFor="let tag of t.tags" value="{{tag.tagName}}"></p-tag>
@@ -91,11 +91,11 @@
         </div>
         <div class="p-inputgroup">
             <span class="p-inputgroup-addon"><i class="pi pi-bookmark"></i></span>
-            <input type="text" pInputText [(ngModel)]="transaction.transactionType.type" disabled placeholder="Type">
+            <input type="text" pInputText [(ngModel)]="transaction.transactionType.type" [disabled] = 'true' placeholder="Type">
         </div>
         <div class="p-inputgroup">
             <span class="p-inputgroup-addon"><i class="pi pi-user-plus"></i></span>
-            <input type="text" pInputText [(ngModel)]="transaction.consumer.name" placeholder="Destination" disabled = "{{transaction.id.length !== 0}}">
+            <input type="text" pInputText [(ngModel)]="transaction.consumer.name" placeholder="Consumer" disabled = "{{transaction.id.length !== 0}}">
         </div>
         <div class="p-inputgroup">
             <span class="p-inputgroup-addon"><i class="pi pi-user-minus"></i></span>

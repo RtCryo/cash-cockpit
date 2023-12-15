@@ -19,14 +19,14 @@ public class VaultRepositoryService {
     private final ToDTOMapper toDTOMapper;
 
     public double getTotalSum() {
-        return vaultRepository.findAllByUserDAO(UserService.getUser())
+        return vaultRepository.findAllByUserDAO(UserService.getCurrentUser())
                 .stream()
                 .map(VaultDAO::getSum)
                 .reduce(0d, Double::sum);
     }
 
     public List<VaultDTO> findAll() {
-        return vaultRepository.findAllByUserDAO(UserService.getUser())
+        return vaultRepository.findAllByUserDAO(UserService.getCurrentUser())
                 .stream()
                 .map(toDTOMapper::toVaultDTO)
                 .toList();
@@ -35,11 +35,11 @@ public class VaultRepositoryService {
     public void saveVault(final double sum) {
         vaultRepository.save(VaultDAO.builder()
                 .sum(sum)
-                .userDAO(UserService.getUser())
+                .userDAO(UserService.getCurrentUser())
                 .build());
     }
 
     public void deleteVault(final UUID id) {
-        vaultRepository.deleteAllByUserDAOAndId(UserService.getUser(), id);
+        vaultRepository.deleteAllByUserDAOAndId(UserService.getCurrentUser(), id);
     }
 }

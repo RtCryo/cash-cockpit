@@ -34,4 +34,7 @@ public class FileInfoDAO extends AbstractDAO {
 
     @Column(name = "user_id")
     private UUID userId;
+
+    @Column(name = "status")
+    private ProgressStatus status;
 }

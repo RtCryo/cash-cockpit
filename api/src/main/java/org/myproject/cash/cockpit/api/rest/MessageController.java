@@ -1,7 +1,6 @@
 package org.myproject.cash.cockpit.api.rest;
 
 import lombok.RequiredArgsConstructor;
-import org.myproject.cash.cockpit.api.mapper.ToDTOMapper;
 import org.myproject.cash.cockpit.api.service.MessageService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,12 +16,11 @@ import java.util.List;
 public class MessageController {
 
     private final MessageService messageService;
-    private final ToDTOMapper mapper;
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<String> getAllMessage() {
-        return messageService.getAllMessage();
+    public List<String> getNewMessage() {
+        return messageService.getNewMessage();
     }
 
 }

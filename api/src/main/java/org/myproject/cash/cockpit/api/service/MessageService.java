@@ -1,7 +1,8 @@
 package org.myproject.cash.cockpit.api.service;
 
 import lombok.RequiredArgsConstructor;
-import org.myproject.cash.cockpit.api.repository.model.UserDAO;
+import org.myproject.cash.cockpit.api.repository.MessageRepository;
+import org.myproject.cash.cockpit.api.repository.model.MessageDAO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,13 +11,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MessageService {
 
-    private final UserService userService;
+    private final MessageRepository messageRepository;
 
-
-    public List<String> getAllMessage() {
-        UserDAO userDAO = userService.getUser();
-
-        return null;
+    public List<String> getNewMessage() {
+        List<MessageDAO> newMessage = messageRepository.findAllByUserAndIsNew(UserService.getCurrentUser(), true);
+        newMessage.forEach(messageDAO -> messageDAO.setIsNew(false));
+        messageRepository.saveAll(newMessage);
+        return newMessage.stream().map(MessageDAO::getMessage).toList();
     }
 
 }

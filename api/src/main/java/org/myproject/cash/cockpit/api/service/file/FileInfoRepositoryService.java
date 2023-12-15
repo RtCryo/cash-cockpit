@@ -18,7 +18,7 @@ public class FileInfoRepositoryService {
     private final FileInfoRepository fileInfoRepository;
 
     public List<FileInfoDAO> findAll(final Sort sort) {
-        return fileInfoRepository.findAllByUserDAO(UserService.getUser(), sort);
+        return fileInfoRepository.findAllByUserDAO(UserService.getCurrentUser(), sort);
     }
 
     public FileInfoDAO save(final FileInfoDAO fileInfoDAO) {

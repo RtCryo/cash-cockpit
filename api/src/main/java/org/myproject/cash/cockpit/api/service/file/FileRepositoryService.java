@@ -23,7 +23,7 @@ public class FileRepositoryService {
     }
 
     public long count() {
-        return fileRepository.countByUserDAO(UserService.getUser());
+        return fileRepository.countByUserDAO(UserService.getCurrentUser());
     }
 
     public FileDAO save(final FileDAO fileDAO) {

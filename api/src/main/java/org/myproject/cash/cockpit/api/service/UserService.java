@@ -27,7 +27,7 @@ public class UserService {
         }
     }
 
-    public static UserDAO getUser() {
+    public static UserDAO getCurrentUser() {
         return (UserDAO) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }

@@ -8,7 +8,6 @@ import org.myproject.cash.cockpit.api.mapper.ToDTOMapper;
 import org.myproject.cash.cockpit.api.repository.TagRepository;
 import org.myproject.cash.cockpit.api.repository.model.TagDAO;
 import org.myproject.cash.cockpit.api.repository.model.TransactionDAO;
-import org.myproject.cash.cockpit.api.repository.model.UserDAO;
 import org.myproject.cash.cockpit.api.rest.model.TagDTO;
 import org.myproject.cash.cockpit.api.service.UserService;
 import org.myproject.cash.cockpit.api.service.rule.RuleRepositoryService;
@@ -34,11 +33,11 @@ public class TagRepositoryService {
     private final ToDTOMapper mapper;
 
     public long count() {
-        return tagRepository.countByUserDAO(UserService.getUser());
+        return tagRepository.countByUserDAO(UserService.getCurrentUser());
     }
 
     public List<TagDTO> findAllTags() {
-        return tagRepository.findAllByUserDAO(UserService.getUser())
+        return tagRepository.findAllByUserDAO(UserService.getCurrentUser())
                 .stream()
                 .map(mapper::toTagDTO)
                 .toList();
@@ -49,14 +48,14 @@ public class TagRepositoryService {
         validateTag(newTagName);
         TagDAO tagDAO = TagDAO.builder()
                 .tagName(newTagName)
-                .userDAO(UserService.getUser())
+                .userDAO(UserService.getCurrentUser())
                 .build();
         tagRepository.save(tagDAO);
     }
 
     public void updateTag(final String tagId, final TagDTO updateTag) {
         validateTag(updateTag.tagName());
-        TagDAO tagDAO = tagRepository.findByUserDAOAndId(UserService.getUser(), UUID.fromString(tagId))
+        TagDAO tagDAO = tagRepository.findByUserDAOAndId(UserService.getCurrentUser(), UUID.fromString(tagId))
                 .orElseThrow(TagNotFoundException::new);
         tagDAO.setTagName(updateTag.tagName());
         tagRepository.save(tagDAO);
@@ -74,7 +73,7 @@ public class TagRepositoryService {
                 .collect(Collectors.toSet());
 
         Set<TagDAO> tagDaoToDelete =
-                new HashSet<>(tagRepository.findAllByUserDAOAndIdIn(UserService.getUser(), tagIdToDelete));
+                new HashSet<>(tagRepository.findAllByUserDAOAndIdIn(UserService.getCurrentUser(), tagIdToDelete));
 
         removeTagFromTransactions(tagDaoToDelete);
         removeRulesByTag(tagDaoToDelete);

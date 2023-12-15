@@ -20,7 +20,7 @@ public class ConsumerRepositoryService {
     private final ToDTOMapper toDTOMapper;
 
     public List<ConsumerDTO> findAllConsumer() {
-        return consumerRepository.findAllByUserDAO(UserService.getUser())
+        return consumerRepository.findAllByUserDAO(UserService.getCurrentUser())
                 .stream()
                 .map(toDTOMapper::toConsumerDTO)
                 .toList();
@@ -28,12 +28,12 @@ public class ConsumerRepositoryService {
 
     public ConsumerDTO save(final ConsumerDTO consumerDTO) {
         ConsumerDAO consumerDAO = toDAOMapper.toConsumerDAO(consumerDTO);
-        consumerDAO.setUserDAO(UserService.getUser());
+        consumerDAO.setUserDAO(UserService.getCurrentUser());
         ConsumerDAO savedConsumer = consumerRepository.save(consumerDAO);
         return toDTOMapper.toConsumerDTO(savedConsumer);
     }
 
     public long count() {
-        return consumerRepository.countByUserDAO(UserService.getUser());
+        return consumerRepository.countByUserDAO(UserService.getCurrentUser());
     }
 }

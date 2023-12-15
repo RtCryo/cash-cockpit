@@ -21,5 +21,5 @@ public class FileInfo {
     private final LocalDate start;
     private final LocalDate end;
     private final UUID bankStatementId;
-
+    private final ProgressStatus status;
 }

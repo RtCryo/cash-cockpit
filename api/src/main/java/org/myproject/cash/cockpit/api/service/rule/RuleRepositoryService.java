@@ -30,7 +30,7 @@ public class RuleRepositoryService {
     }
 
     public List<RuleDTO> getAllRules() {
-        return ruleRepository.findAllByUserDAO(UserService.getUser())
+        return ruleRepository.findAllByUserDAO(UserService.getCurrentUser())
                 .stream()
                 .map(toDTOMapper::toRuleDTO)
                 .toList();
@@ -38,14 +38,14 @@ public class RuleRepositoryService {
 
     public void createRule(final RuleDTO ruleDto) {
         RuleDAO ruleDAO = toDAOMapper.toRuleDAO(ruleDto);
-        ruleDAO.setUserDAO(UserService.getUser());
+        ruleDAO.setUserDAO(UserService.getCurrentUser());
         ruleRepository.save(ruleDAO);
     }
 
     public void deleteAllRule(final List<UUID> ruleIds) {
         List<UUID> listToDelete = new ArrayList<>();
         ruleIds.forEach(uuid -> {
-            if (ruleRepository.existsByUserDAOAndId(UserService.getUser(), uuid)) {
+            if (ruleRepository.existsByUserDAOAndId(UserService.getCurrentUser(), uuid)) {
                 listToDelete.add(uuid);
             }
         });
@@ -54,7 +54,7 @@ public class RuleRepositoryService {
 
     @Transactional
     public void update(final RuleDTO ruleDto, final UUID ruleId) {
-        RuleDAO ruleToUpdate = ruleRepository.findAllByUserDAOAndId(UserService.getUser(), ruleId)
+        RuleDAO ruleToUpdate = ruleRepository.findAllByUserDAOAndId(UserService.getCurrentUser(), ruleId)
                 .orElseThrow(RuleNotFoundException::new);
         RuleDAO newRule = toDAOMapper.toRuleDAO(ruleDto);
         ruleToUpdate.setArea(newRule.getArea());
@@ -64,6 +64,6 @@ public class RuleRepositoryService {
     }
 
     public void deleteAllByTag(final Set<TagDAO> tagIdToDelete) {
-        ruleRepository.deleteAllByUserDAOAndTagIn(UserService.getUser(), tagIdToDelete);
+        ruleRepository.deleteAllByUserDAOAndTagIn(UserService.getCurrentUser(), tagIdToDelete);
     }
 }

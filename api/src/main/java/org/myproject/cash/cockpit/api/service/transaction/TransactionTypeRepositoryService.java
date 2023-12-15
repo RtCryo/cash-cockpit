@@ -18,20 +18,20 @@ public class TransactionTypeRepositoryService {
     private final ToDTOMapper toDTOMapper;
 
     public TransactionTypeDAO findByType(final String type) {
-        return transactionTypeRepository.findByUserDAOAndType(UserService.getUser(), type)
+        return transactionTypeRepository.findByUserDAOAndType(UserService.getCurrentUser(), type)
                 .orElseGet(this::createCustomType);
     }
 
     private TransactionTypeDAO createCustomType() {
         return transactionTypeRepository.save(
                 TransactionTypeDAO.builder()
-                        .userDAO(UserService.getUser())
+                        .userDAO(UserService.getCurrentUser())
                         .type("CUSTOM")
                         .build());
     }
 
     public List<TransactionTypeDTO> findAllTransactionTypes() {
-        return transactionTypeRepository.findAllByUserDAO(UserService.getUser())
+        return transactionTypeRepository.findAllByUserDAO(UserService.getCurrentUser())
                 .stream()
                 .map(toDTOMapper::toTypeDTO)
                 .toList();
