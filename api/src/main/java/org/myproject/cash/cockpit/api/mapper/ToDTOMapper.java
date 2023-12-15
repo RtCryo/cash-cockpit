@@ -11,7 +11,7 @@ public abstract class ToDTOMapper {
 
     public abstract ConsumerDTO toConsumerDTO(ConsumerDAO consumerDAO);
 
-    @Mapping(target = "bankStatement", source = "bankStatement.id")
+    @Mapping(target = "bankStatementId", source = "bankStatement.id")
     public abstract FileInfoDTO toFileInfoDTO(FileInfoDAO fileInfoDAO);
 
     public abstract FileDTO toFileDTO(FileDAO fileDAO);
