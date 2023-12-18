@@ -31,10 +31,6 @@ public class TransactionDAO extends AbstractDAO {
     @JoinColumn(name = "consumer_id")
     private ConsumerDAO consumer;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "sender_id")
-    private SenderDAO sender;
-
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
             CascadeType.DETACH,

@@ -97,10 +97,6 @@
             <span class="p-inputgroup-addon"><i class="pi pi-user-plus"></i></span>
             <input type="text" pInputText [(ngModel)]="transaction.consumer.name" placeholder="Consumer" disabled = "{{transaction.id.length !== 0}}">
         </div>
-        <div class="p-inputgroup">
-            <span class="p-inputgroup-addon"><i class="pi pi-user-minus"></i></span>
-            <input type="text" pInputText [(ngModel)]="transaction.sender.name" placeholder="Sender" disabled = "{{transaction.id.length !== 0}}">
-        </div>
         <div class="p-inputgroup green">
             <span class="p-inputgroup-addon"><i class="pi pi-info-circle"></i></span>
             <textarea pInputTextarea [(ngModel)]="transaction.transactionInfo.info" [autoResize]="true" placeholder="Info"></textarea>

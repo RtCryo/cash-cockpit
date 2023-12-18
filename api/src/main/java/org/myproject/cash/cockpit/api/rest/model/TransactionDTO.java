@@ -11,7 +11,6 @@ public record TransactionDTO(UUID id,
                              @NotNull TransactionInfoDTO transactionInfo,
                              TransactionTypeDTO transactionType,
                              @NotNull ConsumerDTO consumer,
-                             @NotNull SenderDTO sender,
                              List<TagDTO> tags,
                              @NotNull Double total) {
 }

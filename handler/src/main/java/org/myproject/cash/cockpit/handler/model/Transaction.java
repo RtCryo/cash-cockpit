@@ -26,9 +26,6 @@ public class Transaction {
     private final TransactionType transactionType = TransactionType.builder().build();
 
     @Builder.Default
-    private final Sender sender = Sender.builder().build();
-
-    @Builder.Default
     private final Destination destination = Destination.builder().build();
 
     @Builder.Default

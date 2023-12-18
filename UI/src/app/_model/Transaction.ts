@@ -1,8 +1,7 @@
-import { Tag } from "./Tag";
-import { Consumer } from "./Consumer";
-import { TransactionInfo } from "./TransactionInfo";
-import { TransactionType } from "./TransactionType";
-import { Sender } from "./Sender";
+import {Tag} from "./Tag";
+import {Consumer} from "./Consumer";
+import {TransactionInfo} from "./TransactionInfo";
+import {TransactionType} from "./TransactionType";
 
 export class Transaction {
     id!: string;
@@ -10,7 +9,6 @@ export class Transaction {
     transactionInfo!: TransactionInfo;
     transactionType!: TransactionType;
     consumer!: Consumer;
-    sender!: Sender;
     tags!: Tag[];
     total!: string;
 }
