@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class FileInfoNotFoundException extends HandlerException {
 
-    public FileInfoNotFoundException(final String key, final String e) {
-        super(key, e);
+    public FileInfoNotFoundException(final String e) {
+        super(e);
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.Comparator;
 import java.util.List;
 
+@Deprecated
 @Service
 @RequiredArgsConstructor
 public class TransactionParserFromXml extends TransactionParser {
@@ -36,7 +37,6 @@ public class TransactionParserFromXml extends TransactionParser {
             localDateTransactionEnd = result.getLast().getTransactionDate();
             return result;
         } catch (Exception e) {
-            //todo add error message to fileInfo
             throw new ReadInputStreamException(e);
         }
     }
