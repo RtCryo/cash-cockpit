@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { FileInfo } from '../_model/FileInfo';
-import { TransactionService } from '../_service/transaction.service';
-import { UploadService } from '../_service/upload.service';
-import { saveAs as importedSaveAs } from "file-saver";
-import { MessageService } from 'primeng/api';
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
+import {FileInfo} from '../_model/FileInfo';
+import {TransactionService} from '../_service/transaction.service';
+import {UploadService} from '../_service/upload.service';
+import {saveAs as importedSaveAs} from "file-saver";
+import {MessageService} from 'primeng/api';
 
 @Component({
   selector: 'app-files',

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { MegaMenuItem } from 'primeng/api';
+import {Component} from '@angular/core';
+import {MegaMenuItem} from 'primeng/api';
 
 @Component({
   selector: 'app-navbar',

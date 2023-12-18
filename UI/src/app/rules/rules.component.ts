@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { Rule } from '../_model/Rule';
-import { Tag } from '../_model/Tag';
-import { RulesService } from '../_service/rules.service';
-import { TagService } from '../_service/tag.service';
+import {Component} from '@angular/core';
+import {ConfirmationService, MessageService} from 'primeng/api';
+import {Rule} from '../_model/Rule';
+import {Tag} from '../_model/Tag';
+import {RulesService} from '../_service/rules.service';
+import {TagService} from '../_service/tag.service';
 
 @Component({
   selector: 'app-rules',
@@ -30,8 +30,8 @@ export class RulesComponent {
     {label: "Type", value: "TYPE"}];
 
   constructor(
-    private messageService: MessageService, 
-    private rulesService: RulesService, 
+    private messageService: MessageService,
+    private rulesService: RulesService,
     private confirmationService: ConfirmationService,
     private tagService: TagService) {
     this.loading = true;
@@ -59,7 +59,7 @@ export class RulesComponent {
         this.create = false;
         this.update = false;
         this.loading = false;
-      }, 
+      },
       error: (response) => {
         setTimeout(() => {}, 500)
         this.messageService.add({severity: 'error', summary: 'Error', detail: response.error.message, life: 3000})
@@ -88,7 +88,7 @@ export class RulesComponent {
         this.rulesService.deleteRules(t).subscribe({
           next: () => {
             this.refreshPageRules()
-          }, 
+          },
           error: () => {
             this.blockedDocument = false;
           }
@@ -113,7 +113,7 @@ export class RulesComponent {
         this.messageService.add({severity: 'success', summary: 'Success', detail: response.message, life: 3000})
         this.blockedDocument = false;
         this.create = false;
-      }, 
+      },
       error: (response) => {
         setTimeout(() => {}, 500)
         this.messageService.add({severity: 'error', summary: 'Error', detail: response.message, life: 3000})
@@ -131,7 +131,7 @@ export class RulesComponent {
         this.messageService.add({severity: 'success', summary: 'Success', detail: response.message, life: 3000})
         this.blockedDocument = false;
         this.create = false;
-      }, 
+      },
       error: (response) => {
         setTimeout(() => {}, 500)
         this.messageService.add({severity: 'error', summary: 'Error', detail: response.message, life: 3000})
@@ -149,7 +149,7 @@ export class RulesComponent {
           setTimeout(() => {}, 500)
           this.messageService.add({severity: 'success', summary: 'Success', detail: response.message, life: 3000})
           this.refreshPageRules();
-        }, 
+        },
         error: (response) => {
           setTimeout(() => {}, 500)
           this.messageService.add({severity: 'error', summary: 'Error', detail: response.error.message, life: 3000})
@@ -176,7 +176,7 @@ export class RulesComponent {
           setTimeout(() => {}, 500)
           this.messageService.add({severity: 'success', summary: 'Success', detail: response.message, life: 3000})
           this.refreshPageRules();
-        }, 
+        },
         error: (response) => {
           setTimeout(() => {}, 500)
           this.messageService.add({severity: 'error', summary: 'Error', detail: response.message, life: 3000})
