@@ -17,7 +17,7 @@ public class TransactionParserFromCsv extends TransactionParser {
 
     @Override
     public String getParserName() {
-        return "csv";
+        return "text/csv";
     }
 
     @Override

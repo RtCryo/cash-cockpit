@@ -107,4 +107,8 @@ public class TransactionRepositoryService {
             throw new IllegalArgumentException("CUSTOM type not found");
         }
     }
+
+    public List<TransactionDAO> findAll() {
+        return transactionRepository.findAllByUserDAO(UserService.getCurrentUser());
+    }
 }

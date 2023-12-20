@@ -15,6 +15,10 @@ export class TagService {
     return this.http.get<Tag[]>(`${environment.hostUrl}/tag`, {withCredentials: true})
   }
 
+  getAllFreeTags() {
+    return this.http.get<Tag[]>(`${environment.hostUrl}/tag/free`, {withCredentials: true})
+  }
+
   refreshAllTransactionsByCategory(tags: Tag[]){
     return this.http.post<MessageDto>(`${environment.hostUrl}/tag/refresh`, tags, {withCredentials: true})
   }
@@ -30,5 +34,6 @@ export class TagService {
   deleteTags(tagToDelete:Tag[]){
     return this.http.post<MessageDto>(`${environment.hostUrl}/tag/remove`, tagToDelete, {withCredentials: true})
   }
+
 
 }

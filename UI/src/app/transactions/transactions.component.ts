@@ -27,7 +27,6 @@ export class TransactionsComponent implements OnInit{
     transactionInfo: { id: "", info: "" },
     transactionType: { id: "", type: "CUSTOM" },
     consumer: { id: "", name: "" },
-    sender: { id: "", name: "" },
     tags: [],
     total: "0",
     transactionDate: ""

@@ -12,9 +12,11 @@ import {TagService} from '../_service/tag.service';
 })
 export class RulesComponent {
 
+  inputKey: string = "";
   tags: Tag[] = [];
+  freeTags: Tag[] = [];
   rules: Rule[] = [];
-  updateRule:Rule = {id: "", tagId: "", area: "INFO", has: []};
+  updateRule: Rule = {id: "", tagId: "", area: "INFO", has: []};
   selectedRules!: Rule[];
   loading = false;
   create = false;
@@ -44,11 +46,29 @@ export class RulesComponent {
         this.loading = false;
       },
       error: (response) => {
-        setTimeout(() => {}, 500)
+        setTimeout(() => {
+        }, 500)
         this.messageService.add({severity: 'error', summary: 'Error', detail: response.error.message, life: 3000})
         this.loading = false;
       }
     })
+    tagService.getAllFreeTags().subscribe({
+      next: (response) => {
+        this.freeTags = response;
+        this.blockedDocument = false;
+        this.loading = false;
+      },
+      error: (response) => {
+        setTimeout(() => {
+        }, 500)
+        this.messageService.add({severity: 'error', summary: 'Error', detail: response.error.message, life: 3000})
+        this.loading = false;
+      }
+    })
+  }
+
+  chip($event: any) {
+    this.inputKey += $event.data
   }
 
   refreshPageRules() {
@@ -61,7 +81,8 @@ export class RulesComponent {
         this.loading = false;
       },
       error: (response) => {
-        setTimeout(() => {}, 500)
+        setTimeout(() => {
+        }, 500)
         this.messageService.add({severity: 'error', summary: 'Error', detail: response.error.message, life: 3000})
         this.loading = false;
       }
@@ -74,14 +95,14 @@ export class RulesComponent {
     this.create = true;
   }
 
-  confirmDelete(){
+  confirmDelete() {
     this.confirmationService.confirm({
       message: 'Are you sure that you want to proceed?',
       header: 'Confirmation',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.blockedDocument = true;
-        let t:string[] = [];
+        let t: string[] = [];
         this.selectedRules.forEach(element => {
           t.push(element.id);
         });
@@ -95,27 +116,29 @@ export class RulesComponent {
         })
       },
       reject: () => {
-        this.messageService.add({severity:'warn', summary:'Cancelled', detail:'You have cancelled'});
+        this.messageService.add({severity: 'warn', summary: 'Cancelled', detail: 'You have cancelled'});
       },
       key: "positionDialog"
     });
   }
 
-  refreshSelectedRules(){
+  refreshSelectedRules() {
     this.blockedDocument = true;
-    let ids:string[] = [];
+    let ids: string[] = [];
     this.rules.forEach(el => {
       ids.push(el.id)
     })
     this.rulesService.refreshAllTransactionsByRules(ids).subscribe({
-      next: (response) =>{
-        setTimeout(() => {}, 500)
+      next: (response) => {
+        setTimeout(() => {
+        }, 500)
         this.messageService.add({severity: 'success', summary: 'Success', detail: response.message, life: 3000})
         this.blockedDocument = false;
         this.create = false;
       },
       error: (response) => {
-        setTimeout(() => {}, 500)
+        setTimeout(() => {
+        }, 500)
         this.messageService.add({severity: 'error', summary: 'Error', detail: response.message, life: 3000})
         this.blockedDocument = false;
         this.create = false;
@@ -123,17 +146,19 @@ export class RulesComponent {
     })
   }
 
-  refreshRule(rule: Rule){
+  refreshRule(rule: Rule) {
     this.blockedDocument = true;
     this.rulesService.refreshAllTransactionsByRules([rule.id]).subscribe({
-      next: (response) =>{
-        setTimeout(() => {}, 500)
+      next: (response) => {
+        setTimeout(() => {
+        }, 500)
         this.messageService.add({severity: 'success', summary: 'Success', detail: response.message, life: 3000})
         this.blockedDocument = false;
         this.create = false;
       },
       error: (response) => {
-        setTimeout(() => {}, 500)
+        setTimeout(() => {
+        }, 500)
         this.messageService.add({severity: 'error', summary: 'Error', detail: response.message, life: 3000})
         this.blockedDocument = false;
         this.create = false;
@@ -141,17 +166,28 @@ export class RulesComponent {
     })
   }
 
-  createRule(){
+  createRule() {
     if (this.newRule != null && this.newRule.id == "" && this.newRule.area.length > 0 && this.newRule.tagId.length > 0) {
+      if (this.newRule.has.length == 0) {
+        if (this.inputKey === null) {
+          this.messageService.add({severity: 'error', summary: 'Error', detail: 'keywords cant be empty', life: 3000})
+          this.blockedDocument = false;
+          return;
+        } else {
+          this.newRule.has.push(this.inputKey);
+        }
+      }
       this.blockedDocument = true;
       this.rulesService.createRule(this.newRule).subscribe({
         next: (response) => {
-          setTimeout(() => {}, 500)
+          setTimeout(() => {
+          }, 500)
           this.messageService.add({severity: 'success', summary: 'Success', detail: response.message, life: 3000})
           this.refreshPageRules();
         },
         error: (response) => {
-          setTimeout(() => {}, 500)
+          setTimeout(() => {
+          }, 500)
           this.messageService.add({severity: 'error', summary: 'Error', detail: response.error.message, life: 3000})
           this.blockedDocument = false;
           this.create = false;
@@ -168,17 +204,19 @@ export class RulesComponent {
     this.update = true;
   }
 
-  sendUpdateRule(){
+  sendUpdateRule() {
     if (this.updateRule != null && this.updateRule.area.length > 0 && this.updateRule.id.length > 0 && this.updateRule.tagId.length > 0 && this.updateRule.has.length > 0) {
       this.blockedDocument = true;
       this.rulesService.updateRule(this.updateRule).subscribe({
         next: (response) => {
-          setTimeout(() => {}, 500)
+          setTimeout(() => {
+          }, 500)
           this.messageService.add({severity: 'success', summary: 'Success', detail: response.message, life: 3000})
           this.refreshPageRules();
         },
         error: (response) => {
-          setTimeout(() => {}, 500)
+          setTimeout(() => {
+          }, 500)
           this.messageService.add({severity: 'error', summary: 'Error', detail: response.message, life: 3000})
           this.blockedDocument = false;
           this.update = false;

@@ -66,4 +66,8 @@ public class RuleRepositoryService {
     public void deleteAllByTag(final Set<TagDAO> tagIdToDelete) {
         ruleRepository.deleteAllByUserDAOAndTagIn(UserService.getCurrentUser(), tagIdToDelete);
     }
+
+    public List<RuleDAO> findAllById(final Set<UUID> ruleIds) {
+        return ruleRepository.findAllByUserDAOAndIdIn(UserService.getCurrentUser(), ruleIds);
+    }
 }

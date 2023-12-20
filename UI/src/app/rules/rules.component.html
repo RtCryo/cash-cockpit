@@ -26,7 +26,7 @@
                 <th headers="Has">Keywords</th>
                 <th headers="Refresh" style="width:5%">Refresh</th>
             </tr>
-        </ng-template>   
+        </ng-template>
         <ng-template pTemplate="body" let-rule>
             <tr>
                 <td>
@@ -47,15 +47,15 @@
 
 <p-dialog
     [style]="{width: '30rem', height: '80%'}"
-    header="New rule:" 
+    header="New rule:"
     [(visible)]="create"
     [modal]="true"
     [dismissableMask]="true"
     [closeOnEscape]="true">
     <div class = "grid margin-top-1">
         <p-selectButton class="item" [options]="options" [(ngModel)]="newRule.area" optionLabel="label" optionValue="value"></p-selectButton>
-        <p-chips [(ngModel)]="newRule.has" placeholder="rule" [separator]="separator" [style]="{width: '100%'}"></p-chips>
-        <p-dropdown class="item" [options]="tags" [(ngModel)]="newRule.tagId" optionLabel="tagName" optionValue="id"></p-dropdown>
+        <p-chips (input)="chip($event)" [(ngModel)]="newRule.has" placeholder="rule" [separator]="separator" [style]="{width: '100%'}"></p-chips>
+        <p-dropdown class="item" [options]="freeTags" [(ngModel)]="newRule.tagId" optionLabel="tagName" optionValue="id"></p-dropdown>
     </div>
     <ng-template pTemplate="footer">
         <p-button icon="pi pi-check" (click)="createRule()" label="Ok" styleClass="p-button-text"></p-button>
@@ -64,25 +64,25 @@
 
 <p-dialog
     [style]="{width: '30rem', height: '80%'}"
-    header="Update rule:" 
+    header="Update rule:"
     [(visible)]="update"
     [modal]="true"
     [dismissableMask]="true">
     <div class = "grid margin-top-1">
         <p-selectButton class="item" [options]="options" [(ngModel)]="updateRule.area" optionLabel="label" optionValue="value"></p-selectButton>
         <p-chips [(ngModel)]="updateRule.has" placeholder="rule" [separator]="separator" [style]="{width: '100%'}"></p-chips>
-        <p-dropdown class="item" [options]="tags" [(ngModel)]="updateRule.tagId" optionLabel="tagName" optionValue="id"></p-dropdown>
+        <p-dropdown class="item" [options]="freeTags" [(ngModel)]="updateRule.tagId" optionLabel="tagName" optionValue="id"></p-dropdown>
     </div>
     <ng-template pTemplate="footer">
         <p-button icon="pi pi-check" (click)="sendUpdateRule()" label="Ok" styleClass="p-button-text"></p-button>
     </ng-template>
 </p-dialog>
 
-<p-confirmDialog 
-    [style]="{width: '50vw'}" 
-    [baseZIndex]="10000" 
-    rejectButtonStyleClass="p-button-text" 
-    [closable]="false" 
-    key="positionDialog" 
+<p-confirmDialog
+    [style]="{width: '50vw'}"
+    [baseZIndex]="10000"
+    rejectButtonStyleClass="p-button-text"
+    [closable]="false"
+    key="positionDialog"
     position = "top">
 </p-confirmDialog>

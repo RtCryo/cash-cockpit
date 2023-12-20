@@ -43,6 +43,13 @@ public class TagRepositoryService {
                 .toList();
     }
 
+    public List<TagDTO> findAllFreeTags() {
+        return tagRepository.findAllByUserDAOAndAndRule(UserService.getCurrentUser(), null)
+                .stream()
+                .map(mapper::toTagDTO)
+                .toList();
+    }
+
     @Transactional
     public void createTag(final String newTagName) {
         validateTag(newTagName);
