@@ -18,7 +18,7 @@ public class FileInfoRepositoryService {
 
     public FileInfoDAO findFileInfoById(final UUID id) {
         return fileInfoRepository.findById(id)
-                .orElseThrow(() -> new FileInfoNotFoundException(id.toString(), "FileInfo not found. ID: " + id));
+                .orElseThrow(() -> new FileInfoNotFoundException("FileInfo not found. ID: " + id));
     }
 
     public void updateAndSaveFileInfo(final FileInfoDAO fileInfoDAO, final LocalDate start, final LocalDate end) {

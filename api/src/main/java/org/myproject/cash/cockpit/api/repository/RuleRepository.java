@@ -20,4 +20,6 @@ public interface RuleRepository extends ListCrudRepository<RuleDAO, UUID> {
 
     Optional<RuleDAO> findAllByUserDAOAndId(UserDAO userDAO, UUID id);
 
+    List<RuleDAO> findAllByUserDAOAndIdIn(UserDAO userDAO, Collection<UUID> ids);
+
 }

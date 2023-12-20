@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { MessageDto } from '../_model/MessageDto';
-import { Rule } from '../_model/Rule';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {environment} from 'src/environments/environment';
+import {MessageDto} from '../_model/MessageDto';
+import {Rule} from '../_model/Rule';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,7 @@ export class RulesService {
   updateRule(rule:Rule){
     return this.http.post<MessageDto>(`${environment.hostUrl}/rule/` + rule.id, rule, {withCredentials: true})
   }
-  
+
   deleteRules(ruleToDelete:string[]){
     return this.http.post<MessageDto>(`${environment.hostUrl}/rule/remove`, ruleToDelete, {withCredentials: true})
   }

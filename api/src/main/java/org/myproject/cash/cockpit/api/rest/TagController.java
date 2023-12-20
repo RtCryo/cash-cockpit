@@ -25,6 +25,12 @@ public class TagController {
         return tagRepositoryService.findAllTags();
     }
 
+    @GetMapping("/free")
+    @ResponseStatus(HttpStatus.OK)
+    public List<TagDTO> showAllFreeTags() {
+        return tagRepositoryService.findAllFreeTags();
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
     public MessageDTO createTag(@RequestBody @NotNull @NotBlank final String newTagName) {

@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { VaultService } from './vault.service';
+import {VaultService} from './vault.service';
 
 describe('VaultService', () => {
   let service: VaultService;

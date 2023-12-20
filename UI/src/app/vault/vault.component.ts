@@ -1,10 +1,10 @@
-import { Component, ViewChild } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { DialogService } from 'primeng/dynamicdialog';
-import { Table } from 'primeng/table';
-import { MessageDto } from '../_model/MessageDto';
-import { Vault } from '../_model/Vault';
-import { VaultService } from '../_service/vault.service';
+import {Component, ViewChild} from '@angular/core';
+import {ConfirmationService, MessageService} from 'primeng/api';
+import {DialogService} from 'primeng/dynamicdialog';
+import {Table} from 'primeng/table';
+import {MessageDto} from '../_model/MessageDto';
+import {Vault} from '../_model/Vault';
+import {VaultService} from '../_service/vault.service';
 
 @Component({
   selector: 'app-vault',
@@ -23,7 +23,7 @@ export class VaultComponent {
   newAmount: number = 0;
 
   constructor(
-    private vaultService: VaultService, 
+    private vaultService: VaultService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService) {
     this.loading = true;
@@ -67,7 +67,7 @@ export class VaultComponent {
           setTimeout(() => {}, 500)
           this.messageService.add({severity: 'success', summary: 'Success', detail: response.message, life: 3000})
           this.refreshPageVault();
-        }, 
+        },
         error: (response) => {
           setTimeout(() => {}, 500)
           this.messageService.add({severity: 'error', summary: 'Error', detail: response.message, life: 3000})
@@ -87,7 +87,7 @@ export class VaultComponent {
         this.blockedDocument = false;
         this.create = false;
         this.loading = false;
-      }, 
+      },
       error: (response) => {
         setTimeout(() => {}, 500)
         this.messageService.add({severity: 'error', summary: 'Error', detail: response.error.message, life: 3000})

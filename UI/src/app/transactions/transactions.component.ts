@@ -1,16 +1,16 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { FilterDto } from '../_model/FilterDto';
-import { Tag } from '../_model/Tag';
-import { Transaction } from '../_model/Transaction';
-import { TagService } from '../_service/tag.service';
-import { TransactionService } from '../_service/transaction.service';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MessageService} from 'primeng/api';
+import {FilterDto} from '../_model/FilterDto';
+import {Tag} from '../_model/Tag';
+import {Transaction} from '../_model/Transaction';
+import {TagService} from '../_service/tag.service';
+import {TransactionService} from '../_service/transaction.service';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { Table } from 'primeng/table';
-import { TransactionType } from '../_model/TransactionType';
-import { TransactionTypeService } from '../_service/transaction-type.service';
-import { MessageDto } from '../_model/MessageDto';
+import {Table} from 'primeng/table';
+import {TransactionType} from '../_model/TransactionType';
+import {TransactionTypeService} from '../_service/transaction-type.service';
+import {MessageDto} from '../_model/MessageDto';
 
 @Component({
   selector: 'app-transactions',
@@ -27,7 +27,6 @@ export class TransactionsComponent implements OnInit{
     transactionInfo: { id: "", info: "" },
     transactionType: { id: "", type: "CUSTOM" },
     consumer: { id: "", name: "" },
-    sender: { id: "", name: "" },
     tags: [],
     total: "0",
     transactionDate: ""

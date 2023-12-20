@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { Tag } from '../_model/Tag';
-import { TagService } from '../_service/tag.service';
+import {Component} from '@angular/core';
+import {ConfirmationService, MessageService} from 'primeng/api';
+import {Tag} from '../_model/Tag';
+import {TagService} from '../_service/tag.service';
 
 @Component({
   selector: 'app-tags',
@@ -21,8 +21,8 @@ export class TagsComponent {
   newTag: string;
 
   constructor(
-    private messageService: MessageService, 
-    private tagsService: TagService, 
+    private messageService: MessageService,
+    private tagsService: TagService,
     private confirmationService: ConfirmationService) {
     this.loading = true;
     this.refreshPageTags();
@@ -48,7 +48,7 @@ export class TagsComponent {
         this.create = false;
         this.newTag = "";
         this.loading = false;
-      }, 
+      },
       error: (response) => {
         setTimeout(() => {}, 500)
         this.messageService.add({severity: 'error', summary: 'Error', detail: response.error.message, life: 3000})
@@ -65,7 +65,7 @@ export class TagsComponent {
           setTimeout(() => {}, 500)
           this.messageService.add({severity: 'success', summary: 'Success', detail: response.message, life: 3000})
           this.refreshPageTags();
-        }, 
+        },
         error: (response) => {
           setTimeout(() => {}, 500)
           this.messageService.add({severity: 'error', summary: 'Error', detail: response.message, life: 3000})
@@ -87,7 +87,7 @@ export class TagsComponent {
           setTimeout(() => {}, 500)
           this.messageService.add({severity: 'success', summary: 'Success', detail: response.message, life: 3000})
           this.refreshPageTags();
-        }, 
+        },
         error: (response) => {
           setTimeout(() => {}, 500)
           this.messageService.add({severity: 'error', summary: 'Error', detail: response.message, life: 3000})
@@ -110,7 +110,7 @@ export class TagsComponent {
         this.tagsService.deleteTags(this.selectedTags).subscribe({
           next: () => {
             this.refreshPageTags()
-          }, 
+          },
           error: () => {
             this.blockedDocument = false;
           }

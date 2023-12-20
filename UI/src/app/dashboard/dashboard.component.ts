@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { ReportDto } from '../_model/ReportDto';
-import { DashboardService } from '../_service/dashboard.service';
+import {Component} from '@angular/core';
+import {MessageService} from 'primeng/api';
+import {ReportDto} from '../_model/ReportDto';
+import {DashboardService} from '../_service/dashboard.service';
 import {HttpErrorResponse} from "@angular/common/http";
 import {AuthenticationService} from "../_service/authentication.service";
 

@@ -21,7 +21,6 @@ public abstract class XmlToServiceModelMapper {
     @Mapping(target = "transactionInfo", source = "ntryDtls.txDtls.rmtInf.infoList")
     @Mapping(target = "transactionType", source = ".")
     @Mapping(target = "destination.name", source = "ntryDtls.txDtls.rltdPties.cdtr.destination", defaultValue = "Not provided")
-    @Mapping(target = "sender.name", source = "ntryDtls.txDtls.rltdPties.dbtr.sender", defaultValue = "Not provided")
     @Mapping(target = "total", expression = "java(setMinusWhenDBIT(ntry))")
     @Mapping(target = "tags", ignore = true)
     public abstract Transaction toTransactionFromXml(Ntry ntry);

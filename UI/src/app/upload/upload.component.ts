@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { MessageDto } from '../_model/MessageDto';
-import { UploadService } from '../_service/upload.service';
+import {Component} from '@angular/core';
+import {MessageService} from 'primeng/api';
+import {MessageDto} from '../_model/MessageDto';
+import {UploadService} from '../_service/upload.service';
 
 @Component({
   selector: 'app-upload',
@@ -17,7 +17,7 @@ export class UploadComponent {
     let tempFiles:File[] = []
     this.blockedDocument = true
     for(let file of event.files) {
-        tempFiles.push(file);   
+        tempFiles.push(file);
     }
     this.uploadService.upload(tempFiles).subscribe({
       next: (event: MessageDto) => {

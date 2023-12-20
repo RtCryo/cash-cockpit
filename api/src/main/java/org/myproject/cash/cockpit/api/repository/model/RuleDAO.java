@@ -23,7 +23,7 @@ public class RuleDAO extends AbstractDAO {
     @Enumerated(EnumType.STRING)
     private RuleArea area;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "tag_id")
     private TagDAO tag;
 
