@@ -22,7 +22,9 @@ export class PollingMessageService {
       next: (response: string[]) => {
         if (response.length == 0) return
         response.forEach(value => {
-          this.messageService.add({severity: 'info', summary: 'Info', detail: value, life: 3000})
+          let msg = value;
+          if (value.length > 200) msg = value.substring(0,100) + ". . .";
+          this.messageService.add({severity: 'info', summary: 'Info', detail: msg, life: 3000})
           this.delay(4000);
         })
       },

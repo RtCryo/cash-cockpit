@@ -15,10 +15,7 @@ import org.myproject.cash.cockpit.api.service.transaction.TransactionRepositoryS
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -44,7 +41,7 @@ public class TagRepositoryService {
     }
 
     public List<TagDTO> findAllFreeTags() {
-        return tagRepository.findAllByUserDAOAndAndRule(UserService.getCurrentUser(), null)
+        return tagRepository.findAllByUserDAOAndRule(UserService.getCurrentUser(), null)
                 .stream()
                 .map(mapper::toTagDTO)
                 .toList();
@@ -62,10 +59,11 @@ public class TagRepositoryService {
 
     public void updateTag(final String tagId, final TagDTO updateTag) {
         validateTag(updateTag.tagName());
-        TagDAO tagDAO = tagRepository.findByUserDAOAndId(UserService.getCurrentUser(), UUID.fromString(tagId))
-                .orElseThrow(TagNotFoundException::new);
-        tagDAO.setTagName(updateTag.tagName());
-        tagRepository.save(tagDAO);
+        TagDAO tagDAO = tagRepository.findById(UUID.fromString(tagId)).orElseThrow(TagNotFoundException::new);
+        if (tagDAO.getUserDAO().getId() == UserService.getCurrentUser().getId()) {
+            tagDAO.setTagName(updateTag.tagName());
+            tagRepository.save(tagDAO);
+        }
     }
 
     private void validateTag(final String newTagName) {

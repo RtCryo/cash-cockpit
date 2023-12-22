@@ -4,5 +4,5 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 public record FileInfoDTO(UUID id, String name, String type, LocalDate start, LocalDate end, UUID bankStatementId,
-                          Boolean isHandled) {
+                          Boolean isHandled, String status) {
 }

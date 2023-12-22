@@ -14,7 +14,11 @@ public interface CsvToServiceModelMapper {
     @Mapping(target = "transactionType.type", source = "transactionType")
     @Mapping(target = "destination.name", source = "beneficiary")
     @Mapping(target = "tags", ignore = true)
-    @Mapping(target = "total", source = "amount", numberFormat = "#,00")
+    @Mapping(target = "total", expression = "java(convertSum(csvTransaction.getAmount()))")
     Transaction toTransaction(CsvTransaction csvTransaction);
+
+    default double convertSum(String amount) {
+        return Double.parseDouble(amount.replace(',', '.'));
+    }
 
 }

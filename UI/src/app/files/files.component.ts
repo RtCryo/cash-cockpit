@@ -48,6 +48,10 @@ export class FilesComponent {
   }
 
   getTransactionsFromFile(fileInfo: FileInfo) {
+    if (!fileInfo.isHandled) {
+      this.messageService.add({severity: 'error', summary: 'Error', detail: 'File is not ready!', life: 3000})
+      return;
+    }
     this.transactionService.setFileInfo(fileInfo);
     this.route.navigateByUrl("/transactions");
   }

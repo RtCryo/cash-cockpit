@@ -11,6 +11,4 @@ public interface VaultRepository extends ListCrudRepository<VaultDAO, UUID> {
 
     List<VaultDAO> findAllByUserDAO(UserDAO userDAO);
 
-    void deleteAllByUserDAOAndId(UserDAO userDAO, UUID id);
-
 }
