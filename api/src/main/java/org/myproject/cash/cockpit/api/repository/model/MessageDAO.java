@@ -15,6 +15,7 @@ public class MessageDAO extends AbstractDAO {
     @JoinColumn(name = "user_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private UserDAO user;
+    @Lob
     private String message;
     private Boolean isNew;
 

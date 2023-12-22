@@ -5,4 +5,6 @@ export class FileInfo {
     start!: string;
     end!: string;
     bankStatementId!: string;
+    isHandled!: boolean;
+    status!: string;
 }

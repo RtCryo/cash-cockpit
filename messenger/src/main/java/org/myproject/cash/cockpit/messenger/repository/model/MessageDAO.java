@@ -21,6 +21,7 @@ public class MessageDAO {
     private UUID id;
     @Column(name = "user_id")
     private UUID userId;
+    @Lob
     private String message;
     private Boolean isNew;
 

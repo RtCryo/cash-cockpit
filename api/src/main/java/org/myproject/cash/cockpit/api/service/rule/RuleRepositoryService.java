@@ -12,10 +12,7 @@ import org.myproject.cash.cockpit.api.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -45,7 +42,8 @@ public class RuleRepositoryService {
     public void deleteAllRule(final List<UUID> ruleIds) {
         List<UUID> listToDelete = new ArrayList<>();
         ruleIds.forEach(uuid -> {
-            if (ruleRepository.existsByUserDAOAndId(UserService.getCurrentUser(), uuid)) {
+            RuleDAO ruleDAO = ruleRepository.findById(uuid).orElseThrow(RuleNotFoundException::new);
+            if (ruleDAO.getUserDAO().getId() == UserService.getCurrentUser().getId()) {
                 listToDelete.add(uuid);
             }
         });
@@ -54,13 +52,15 @@ public class RuleRepositoryService {
 
     @Transactional
     public void update(final RuleDTO ruleDto, final UUID ruleId) {
-        RuleDAO ruleToUpdate = ruleRepository.findAllByUserDAOAndId(UserService.getCurrentUser(), ruleId)
-                .orElseThrow(RuleNotFoundException::new);
-        RuleDAO newRule = toDAOMapper.toRuleDAO(ruleDto);
-        ruleToUpdate.setArea(newRule.getArea());
-        ruleToUpdate.setHas(newRule.getHas());
-        ruleToUpdate.setTag(newRule.getTag());
-        ruleRepository.save(ruleToUpdate);
+        RuleDAO ruleToUpdate = ruleRepository.findById(ruleId).orElseThrow(RuleNotFoundException::new);
+        if (ruleToUpdate.getUserDAO().getId() == UserService.getCurrentUser().getId()) {
+            RuleDAO newRule = toDAOMapper.toRuleDAO(ruleDto);
+            ruleToUpdate.setArea(newRule.getArea());
+            ruleToUpdate.setHas(newRule.getHas());
+            ruleToUpdate.setTag(newRule.getTag());
+            ruleRepository.save(ruleToUpdate);
+        }
+
     }
 
     public void deleteAllByTag(final Set<TagDAO> tagIdToDelete) {

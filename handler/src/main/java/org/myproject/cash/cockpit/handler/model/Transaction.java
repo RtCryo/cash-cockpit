@@ -18,7 +18,6 @@ public class Transaction {
     @Builder.Default
     private final LocalDate transactionDate = LocalDate.now();
 
-    @EqualsAndHashCode.Exclude
     @Builder.Default
     private final TransactionInfo transactionInfo = TransactionInfo.builder().build();
 

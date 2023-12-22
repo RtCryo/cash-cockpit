@@ -1,16 +1,17 @@
 <div class="container">
     <!-- <p-progressSpinner class = "spinner" styleClass="custom-spinner" [hidden]="!loading" strokeWidth="2"></p-progressSpinner> -->
-    <p-table [loading]="loading" [value]="fileInfoList" [tableStyle]="{'min-width': '50rem'}" 
-    [paginator]="true" [rows]="12" 
+    <p-table [loading]="loading" [value]="fileInfoList" [tableStyle]="{'min-width': '50rem'}"
+    [paginator]="true" [rows]="12"
     [showCurrentPageReport]="true"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
         <ng-template pTemplate="header">
             <tr>
-                <th style="width:45%">Name</th>
-                <th style="width:20%">Type</th>
-                <th pSortableColumn="period" style="width:25%">Period</th>
-                <th class="center" style="width:5%">Details</th>
-                <th class="center" style="width:5%">Download</th>
+                <th style="width:40%">Name</th>
+                <th style="width:15%">Type</th>
+                <th pSortableColumn="period" style="width:20%">Period</th>
+                <th pSortableColumn="period" style="width:20%">Status</th>
+                <th class="center" style="width:2.5%">Details</th>
+                <th class="center" style="width:2.5%">Download</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-fileInfo>
@@ -18,6 +19,7 @@
                 <td>{{fileInfo.name}}</td>
                 <td>{{fileInfo.type}}</td>
                 <td>{{fileInfo.start | date: 'longDate'}} - {{fileInfo.end | date: 'longDate'}}</td>
+                <td>{{fileInfo.status}}</td>
                 <td class="center" (click) = "getTransactionsFromFile(fileInfo)"><i class="pi pi-fw pi-search cursor-pointer"></i></td>
                 <td class="center" (click) = "getFile(fileInfo)"><i class="pi pi-fw pi-download cursor-pointer"></i></td>
             </tr>

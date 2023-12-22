@@ -7,7 +7,6 @@ import org.springframework.data.repository.ListCrudRepository;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public interface TagRepository extends ListCrudRepository<TagDAO, UUID> {
@@ -18,11 +17,7 @@ public interface TagRepository extends ListCrudRepository<TagDAO, UUID> {
 
     List<TagDAO> findAllByUserDAO(UserDAO userDAO);
 
-    List<TagDAO> findAllByUserDAOAndAndRule(UserDAO userDAO, RuleDAO ruleDAO);
-
-    Optional<TagDAO> findByUserDAOAndId(UserDAO userDAO, UUID id);
-
-    void deleteAllByUserDAOAndId(UserDAO userDAO, UUID id);
+    List<TagDAO> findAllByUserDAOAndRule(UserDAO userDAO, RuleDAO ruleDAO);
 
     List<TagDAO> findAllByUserDAOAndIdIn(UserDAO userDAO, Collection<UUID> ids);
 }

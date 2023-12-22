@@ -1,6 +1,7 @@
 package org.myproject.cash.cockpit.api.service.vault;
 
 import lombok.RequiredArgsConstructor;
+import org.myproject.cash.cockpit.api.exception.VaultNotFound;
 import org.myproject.cash.cockpit.api.mapper.ToDTOMapper;
 import org.myproject.cash.cockpit.api.repository.VaultRepository;
 import org.myproject.cash.cockpit.api.repository.model.VaultDAO;
@@ -40,6 +41,9 @@ public class VaultRepositoryService {
     }
 
     public void deleteVault(final UUID id) {
-        vaultRepository.deleteAllByUserDAOAndId(UserService.getCurrentUser(), id);
+        VaultDAO vaultDAOtoDelete = vaultRepository.findById(id).orElseThrow(VaultNotFound::new);
+        if (vaultDAOtoDelete.getUserDAO().getId() == UserService.getCurrentUser().getId()) {
+            vaultRepository.deleteById(id);
+        }
     }
 }
