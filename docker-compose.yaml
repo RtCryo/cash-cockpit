@@ -104,7 +104,7 @@ services:
       - "traefik.http.services.ui.loadbalancer.server.port=4200"
 
   zookeeper:
-    image: confluentinc/cp-zookeeper:7.5.2
+    image: confluentinc/cp-zookeeper:7.5.3
     container_name: cash-zookeeper
     networks:
       - app-network
