@@ -113,7 +113,7 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
 
   broker:
-    image: confluentinc/cp-kafka:7.5.2
+    image: confluentinc/cp-kafka:7.5.3
     container_name: cash-broker
     expose:
       - "9092"
