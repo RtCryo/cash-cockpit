@@ -78,7 +78,7 @@ public class TransactionRepositoryService {
                 .orElseThrow(TransactionNotFoundException::new);
         dao.toBuilder()
                 .tags(toDAOMapper.toListTagDAO(transaction.tags()))
-                .transactionInfo(toDAOMapper.toInfoDAO(transaction.transactionInfo()))
+                .transactionNotice(transaction.transactionNotice())
                 .build();
         transactionRepository.save(dao);
     }
