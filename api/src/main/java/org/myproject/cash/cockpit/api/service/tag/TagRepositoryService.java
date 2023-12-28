@@ -67,7 +67,7 @@ public class TagRepositoryService {
     }
 
     private void validateTag(final String newTagName) {
-        if (tagRepository.existsByTagName(newTagName)) {
+        if (tagRepository.existsByTagNameAndUserDAO(newTagName, UserService.getCurrentUser())) {
             throw new CreateNewTagException(newTagName);
         }
     }

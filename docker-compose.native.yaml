@@ -1,0 +1,20 @@
+version: '3.7'
+
+services:
+  api:
+    container_name: cash-api_native
+    build:
+      context: ./api/
+      dockerfile: native.Dockerfile
+
+  handler:
+    container_name: cash-handler_native
+    build:
+      context: ./handler/
+      dockerfile: native.Dockerfile
+
+  messenger:
+    container_name: cash-messenger_native
+    build:
+      context: ./messenger/
+      dockerfile: native.Dockerfile

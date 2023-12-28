@@ -1,17 +1,11 @@
-FROM ghcr.io/graalvm/graalvm-community:21 AS build
+FROM maven:3.9.6-eclipse-temurin-21 AS build
+RUN mkdir /project
+COPY . /project
+WORKDIR /project
+RUN mvn clean package -DskipTests
 
-RUN microdnf update -y && \
-    microdnf install -y maven && \
-    microdnf clean all
-
-WORKDIR /usr
-
-COPY . .
-
-RUN mvn -Pnative -DskipTests native:compile
-
-FROM ghcr.io/graalvm/jdk-community:21
-
-COPY --from=build /usr/target/cash-api.jar .
-
-ENTRYPOINT ["java", "-jar","cash-api.jar"]
+FROM openjdk:21-slim
+RUN mkdir /app
+COPY --from=build /project/target/cash-api.jar /app/java-application.jar
+WORKDIR /app
+CMD "java" "-jar" "java-application.jar"
