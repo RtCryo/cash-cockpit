@@ -23,7 +23,7 @@ public class RuleRepositoryService {
     private final ToDAOMapper toDAOMapper;
 
     public long count() {
-        return ruleRepository.count();
+        return ruleRepository.countByUserDAO(UserService.getCurrentUser());
     }
 
     public List<RuleDTO> getAllRules() {

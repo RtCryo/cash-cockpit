@@ -8,6 +8,7 @@ export class Transaction {
     transactionDate!: string;
     transactionInfo!: TransactionInfo;
     transactionType!: TransactionType;
+    transactionNotice!: string;
     consumer!: Consumer;
     tags!: Tag[];
     total!: string;

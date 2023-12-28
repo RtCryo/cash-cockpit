@@ -17,4 +17,5 @@ public interface RuleRepository extends ListCrudRepository<RuleDAO, UUID> {
 
     List<RuleDAO> findAllByUserDAOAndIdIn(UserDAO userDAO, Collection<UUID> ids);
 
+    long countByUserDAO(UserDAO userDAO);
 }

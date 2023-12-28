@@ -22,6 +22,10 @@ public class TransactionDAO extends AbstractDAO {
     @JoinColumn(name = "transaction_info_id")
     private TransactionInfoDAO transactionInfo;
 
+    @Lob
+    @Column(name = "notice")
+    private String transactionNotice;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "transaction_type_id")
     private TransactionTypeDAO transactionType;

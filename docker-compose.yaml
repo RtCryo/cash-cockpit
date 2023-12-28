@@ -21,7 +21,7 @@ services:
   api:
     container_name: cash-api
     build:
-      context: api
+      context: ./api/
     expose:
       - "8080"
     depends_on:
@@ -33,6 +33,11 @@ services:
       - app-network
     environment:
       SPRING_PROFILES_ACTIVE: prod
+    healthcheck:
+      test: "bash -c '>/dev/tcp/localhost/8080'"
+      interval: 10s
+      timeout: 5s
+      retries: 3
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.api.rule=Host(`cash-cockpit.local`)&&PathPrefix(`/api/`)"
@@ -43,10 +48,10 @@ services:
   handler:
     container_name: cash-handler
     build:
-      context: handler
+      context: ./handler/
     depends_on:
-      - api
-      - ext_postgresql
+      api:
+        condition: service_healthy
     networks:
       - app-network
     environment:
@@ -55,10 +60,10 @@ services:
   messenger:
     container_name: cash-messenger
     build:
-      context: messenger
+      context: ./messenger/
     depends_on:
-      - api
-      - ext_postgresql
+      api:
+        condition: service_healthy
     networks:
       - app-network
     environment:
@@ -85,7 +90,8 @@ services:
       target: builder
     restart: always
     depends_on:
-      - api
+      api:
+        condition: service_healthy
     expose:
       - "4200"
     networks:

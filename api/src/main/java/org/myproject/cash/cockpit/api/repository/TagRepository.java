@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public interface TagRepository extends ListCrudRepository<TagDAO, UUID> {
 
-    boolean existsByTagName(String tagName);
+    boolean existsByTagNameAndUserDAO(String tagName, UserDAO currentUser);
 
     long countByUserDAO(UserDAO userDAO);
 

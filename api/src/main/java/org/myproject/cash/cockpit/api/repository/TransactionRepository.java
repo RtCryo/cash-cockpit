@@ -25,11 +25,12 @@ public interface TransactionRepository extends ListCrudRepository<TransactionDAO
                     "             join tag t2 on tt.tag_id = t2.id\n" +
                     "    where t2.id in :transactionTag\n" +
                     "      and t.date between :transactionDate and :transactionDate2" +
-                    "      and t.user_id = :userId" +
                     "    group by t.id\n" +
                     "    having count(*) = :tagSize\n" +
-                    ") ids on ids.id = t.id order by t.date")
+                    ") ids on ids.id = t.id where t.user_id = :userId order by t.date")
     List<TransactionDAO> findByDateBetweenAndTagsOrderByDate(LocalDate transactionDate, LocalDate transactionDate2, Iterable<UUID> transactionTag, int tagSize, UUID userId);
 
     List<TransactionDAO> findAllByUserDAO(UserDAO userDAO);
+
+    long countByUserDAO(UserDAO userDAO);
 }

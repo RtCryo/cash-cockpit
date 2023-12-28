@@ -9,6 +9,7 @@ import java.util.UUID;
 public record TransactionDTO(UUID id,
                              @NotNull LocalDate transactionDate,
                              @NotNull TransactionInfoDTO transactionInfo,
+                             String transactionNotice,
                              TransactionTypeDTO transactionType,
                              @NotNull ConsumerDTO consumer,
                              List<TagDTO> tags,
