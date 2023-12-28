@@ -32,7 +32,7 @@ public class TransactionRepositoryService {
     private static final String CUSTOM = "CUSTOM";
 
     public long count() {
-        return transactionRepository.count();
+        return transactionRepository.countByUserDAO(UserService.getCurrentUser());
     }
 
     public List<TransactionDAO> findAllByTagId(final Iterable<TagDAO> tagIdToDelete) {

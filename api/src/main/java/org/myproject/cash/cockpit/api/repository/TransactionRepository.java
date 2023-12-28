@@ -31,4 +31,6 @@ public interface TransactionRepository extends ListCrudRepository<TransactionDAO
     List<TransactionDAO> findByDateBetweenAndTagsOrderByDate(LocalDate transactionDate, LocalDate transactionDate2, Iterable<UUID> transactionTag, int tagSize, UUID userId);
 
     List<TransactionDAO> findAllByUserDAO(UserDAO userDAO);
+
+    long countByUserDAO(UserDAO userDAO);
 }
