@@ -1,12 +1,19 @@
 ![img.png](img.png)
 
 # cash-cockpit
+Cash Cockpit is a personal finance management tool that helps you keep track of your expenses and income. It provides a simple and intuitive interface to manage your finances, and it’s free and open-source.
 
 + This project was originally intended to be a financial manager that I created on my own and in my free time.
 + The goal was to develop my programming skills and have control and oversight over my financial transactions using a card.
 + This version of the project is not the original; it has been rewritten several times.
 + At the moment, it is functional, but in the stage of further development, there is still a lot of functionality that I would like to implement.
 + This project runs on my Raspberry Pi 4 around the clock within my local network.
+
+### Features
++ Add and categorize transactions
++ View your spending and income history
++ Set budgets and track your progress
++ Generate reports and export data
 
 ### Do you want to run it locally? You need:
 - docker
