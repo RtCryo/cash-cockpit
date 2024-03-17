@@ -22,6 +22,7 @@
         <jakarta.xml.bind-api.version>4.0.1</jakarta.xml.bind-api.version>
         <opencsv.version>5.9</opencsv.version>
         <jacoco-maven-plugin.version>0.8.11</jacoco-maven-plugin.version>
+        <testcontainer.postgresql.version>1.19.7</testcontainer.postgresql.version>
     </properties>
 
     <dependencies>
@@ -81,6 +82,24 @@
             <groupId>com.opencsv</groupId>
             <artifactId>opencsv</artifactId>
             <version>${opencsv.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-testcontainers</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${testcontainer.postgresql.version}</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>

@@ -9,7 +9,7 @@ import org.myproject.cash.cockpit.handler.model.csv.CsvTransaction;
 @Mapper(componentModel = "spring", unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface CsvToServiceModelMapper {
 
-    @Mapping(target = "transactionDate", source = "bookingDate", dateFormat = "dd.MM.yyyy")
+    @Mapping(target = "transactionDate", source = "bookingDate", dateFormat = "d.M.yyyy")
     @Mapping(target = "transactionInfo.info", source = "purpose")
     @Mapping(target = "transactionType.type", source = "transactionType")
     @Mapping(target = "destination.name", source = "beneficiary")
@@ -18,7 +18,9 @@ public interface CsvToServiceModelMapper {
     Transaction toTransaction(CsvTransaction csvTransaction);
 
     default double convertSum(String amount) {
-        return Double.parseDouble(amount.replace(',', '.'));
+        return Double.parseDouble(amount
+                .replace(".", "")
+                .replace(",", "."));
     }
 
 }
