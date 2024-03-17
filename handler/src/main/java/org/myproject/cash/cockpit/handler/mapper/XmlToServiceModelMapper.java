@@ -2,6 +2,7 @@ package org.myproject.cash.cockpit.handler.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
 import org.myproject.cash.cockpit.handler.config.PaymentType;
 import org.myproject.cash.cockpit.handler.exception.PriceTypeIsUnknown;
 import org.myproject.cash.cockpit.handler.model.Transaction;
@@ -12,7 +13,7 @@ import org.myproject.cash.cockpit.handler.model.xml.Ntry;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class XmlToServiceModelMapper {
 
     private final PaymentType paymentTypes = new PaymentType();
