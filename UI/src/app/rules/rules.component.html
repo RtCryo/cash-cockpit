@@ -55,7 +55,7 @@
     <div class = "grid margin-top-1">
         <p-selectButton class="item" [options]="options" [(ngModel)]="newRule.area" optionLabel="label" optionValue="value"></p-selectButton>
         <p-chips (input)="chip($event)" [(ngModel)]="newRule.has" placeholder="rule" [separator]="separator" [style]="{width: '100%'}"></p-chips>
-        <p-dropdown class="item" [options]="freeTags" [(ngModel)]="newRule.tagId" optionLabel="tagName" optionValue="id"></p-dropdown>
+        <p-dropdown class="item" [options]="tags" [(ngModel)]="newRule.tagId" optionLabel="tagName" optionValue="id"></p-dropdown>
     </div>
     <ng-template pTemplate="footer">
         <p-button icon="pi pi-check" (click)="createRule()" label="Ok" styleClass="p-button-text"></p-button>
@@ -71,7 +71,7 @@
     <div class = "grid margin-top-1">
         <p-selectButton class="item" [options]="options" [(ngModel)]="updateRule.area" optionLabel="label" optionValue="value"></p-selectButton>
         <p-chips [(ngModel)]="updateRule.has" placeholder="rule" [separator]="separator" [style]="{width: '100%'}"></p-chips>
-        <p-dropdown class="item" [options]="freeTags" [(ngModel)]="updateRule.tagId" optionLabel="tagName" optionValue="id"></p-dropdown>
+        <p-dropdown class="item" [options]="tags" [(ngModel)]="updateRule.tagId" optionLabel="tagName" optionValue="id"></p-dropdown>
     </div>
     <ng-template pTemplate="footer">
         <p-button icon="pi pi-check" (click)="sendUpdateRule()" label="Ok" styleClass="p-button-text"></p-button>

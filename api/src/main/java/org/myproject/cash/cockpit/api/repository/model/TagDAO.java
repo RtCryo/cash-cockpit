@@ -24,9 +24,11 @@ public class TagDAO extends AbstractDAO {
             CascadeType.REFRESH})
     private List<TransactionDAO> transactions;
 
-    @OneToOne
-    @JoinColumn(name = "rule_id")
-    private RuleDAO rule;
+    @OneToMany
+    @JoinTable(name = "rule_tag",
+            joinColumns = @JoinColumn(name = "rule_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private List<RuleDAO> rule;
 
     @JoinColumn(name = "user_id")
     @ManyToOne(fetch = FetchType.LAZY)

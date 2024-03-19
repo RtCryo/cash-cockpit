@@ -129,7 +129,7 @@ export class TransactionsComponent implements OnInit{
   exportPdf() {
     const doc = new jsPDF('l', 'mm', 'a4');
 
-    const head = [['Date', 'Consumer', 'Type', 'Tags', 'Tags']];
+    const head = [['Date', 'Consumer', 'Info', 'Tags', 'Sum']];
 
     autoTable(doc, {
         head: head,
@@ -151,15 +151,16 @@ export class TransactionsComponent implements OnInit{
       data.push([
         formatDateForPdf(element.transactionDate),
         element.consumer.name,
-        element.transactionType.type,
+        element.transactionInfo.info,
         this.getStringFromTags(element.tags),
         element.total,
       ]);
       sum += +element.total;
     }
     data.push(['########','########', '########', '########', '########'])
-    data.push(['','', '', '', this.roundToDigit(sum, 2)])
-    data.push(['','', '', this.roundToDigit(this.income(), 2), this.roundToDigit(this.payout(), 2)])
+    data.push(['','', '', 'Delta:', this.roundToDigit(sum, 2)])
+    data.push(['','', '', 'Income:', this.roundToDigit(this.income(), 2)])
+    data.push(['','', '', 'Outcome:', this.roundToDigit(this.payout(), 2)])
     return data;
   }
 
