@@ -82,7 +82,7 @@ public class TagRepositoryService {
 
         removeTagFromTransactions(tagDaoToDelete);
         removeRulesByTag(tagDaoToDelete);
-
+        tagRepository.deleteAllById(tagIdToDelete);
     }
 
     private void removeRulesByTag(final Set<TagDAO> tagIdToDelete) {
