@@ -40,13 +40,6 @@ public class TagRepositoryService {
                 .toList();
     }
 
-    public List<TagDTO> findAllFreeTags() {
-        return tagRepository.findAllByUserDAOAndRule(UserService.getCurrentUser(), null)
-                .stream()
-                .map(mapper::toTagDTO)
-                .toList();
-    }
-
     @Transactional
     public void createTag(final String newTagName) {
         validateTag(newTagName);
@@ -82,7 +75,7 @@ public class TagRepositoryService {
 
         removeTagFromTransactions(tagDaoToDelete);
         removeRulesByTag(tagDaoToDelete);
-
+        tagRepository.deleteAllById(tagIdToDelete);
     }
 
     private void removeRulesByTag(final Set<TagDAO> tagIdToDelete) {

@@ -20,15 +20,21 @@ export class DashboardComponent {
         this.report = response;
       },
       error: (response: HttpErrorResponse) => {
-        if (response.status === 401) {
-          this.messageService.add({severity: 'error', summary: 'Error', detail: "Session is expired. Please re-login.", life: 3000})
+        if (response.status >= 401 || response.status < 500) {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: response.message + " Please re-login.",
+            life: 3000
+          })
           auth.logout();
+        } else {
+          this.messageService.add({severity: 'error', summary: 'Error', detail: "Can't load report", life: 3000})
+          this.report.consumers = "0";
+          this.report.tags = "0";
+          this.report.transactions = "0";
+          this.report.files = "0";
         }
-        this.messageService.add({severity: 'error', summary: 'Error', detail: "Can't load report", life: 3000})
-        this.report.consumers = "0";
-        this.report.tags = "0";
-        this.report.transactions = "0";
-        this.report.files = "0";
       }
     })
   }

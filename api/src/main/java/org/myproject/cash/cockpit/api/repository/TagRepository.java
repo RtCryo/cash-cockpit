@@ -17,7 +17,5 @@ public interface TagRepository extends ListCrudRepository<TagDAO, UUID> {
 
     List<TagDAO> findAllByUserDAO(UserDAO userDAO);
 
-    List<TagDAO> findAllByUserDAOAndRule(UserDAO userDAO, RuleDAO ruleDAO);
-
     List<TagDAO> findAllByUserDAOAndIdIn(UserDAO userDAO, Collection<UUID> ids);
 }

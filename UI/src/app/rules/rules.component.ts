@@ -14,7 +14,6 @@ export class RulesComponent {
 
   inputKey: string = "";
   tags: Tag[] = [];
-  freeTags: Tag[] = [];
   rules: Rule[] = [];
   updateRule: Rule = {id: "", tagId: "", area: "INFO", has: []};
   selectedRules!: Rule[];
@@ -42,19 +41,6 @@ export class RulesComponent {
     tagService.getAllTags().subscribe({
       next: (response) => {
         this.tags = response;
-        this.blockedDocument = false;
-        this.loading = false;
-      },
-      error: (response) => {
-        setTimeout(() => {
-        }, 500)
-        this.messageService.add({severity: 'error', summary: 'Error', detail: response.error.message, life: 3000})
-        this.loading = false;
-      }
-    })
-    tagService.getAllFreeTags().subscribe({
-      next: (response) => {
-        this.freeTags = response;
         this.blockedDocument = false;
         this.loading = false;
       },
