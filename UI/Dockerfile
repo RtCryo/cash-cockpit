@@ -1,4 +1,4 @@
-FROM node:21.4.0-bullseye-slim AS builder
+FROM node:21.7.3-bullseye-slim AS builder
 
 RUN mkdir /project
 WORKDIR /project
